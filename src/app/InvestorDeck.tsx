@@ -4,12 +4,14 @@ import {
   ArrowRight,
   CalendarDays,
   ChartColumnBig,
+  Check,
   ChevronDown,
   CircleDollarSign,
   Compass,
   FileText,
   MoonStar,
   Sun,
+  TriangleAlert,
   X,
 } from 'lucide-react';
 import { Cell, Pie, PieChart, ResponsiveContainer, Sector } from 'recharts';
@@ -19,10 +21,12 @@ import {
   arenasImage,
   careerStairsImage,
   cafeImage,
+  combatImage,
   competitionImage,
   exteriorImage,
   floorPlanOneImage,
   floorPlanTwoImage,
+  fullFinancialModelPdf,
   gymImage,
   lobbyImage,
   marketAudienceIndoorSportsPdf,
@@ -42,7 +46,6 @@ import {
   allocationRows,
   captureBands,
   closingProofs,
-  competitionRows,
   growthYears,
   monthlyCostSummary,
   monthlyProfitSummary,
@@ -108,12 +111,94 @@ const backdropBySlide: Record<number, string> = {
   8: arenasImage,
   9: lobbyImage,
   10: apexBrandImage,
-  11: cafeImage,
-  12: vipViewImage,
-  13: floorPlanTwoImage,
-  14: apexBrandImage,
-  15: exteriorImage,
+  11: exteriorImage,
+  12: cafeImage,
+  13: vipViewImage,
+  14: floorPlanTwoImage,
+  15: apexBrandImage,
+  16: exteriorImage,
 };
+
+const objectPlanOneImage = new URL('../../project-assets/plans/plan 1 .png', import.meta.url).href;
+const objectPlanTwoImage = new URL('../../project-assets/plans/plan 2.png', import.meta.url).href;
+
+type ObjectTourAsset = {
+  id: string;
+  src: string;
+  alt: string;
+  title: string;
+  note: string;
+  group: string;
+  featured?: boolean;
+};
+
+const objectTourAssets: ObjectTourAsset[] = [
+  {
+    id: 'exterior',
+    src: exteriorImage,
+    alt: 'Фасад APEX ARENA',
+    title: 'Фасад',
+    note: 'Entrance & brand presence',
+    group: 'CORE ARENA',
+  },
+  {
+    id: 'arenas',
+    src: arenasImage,
+    alt: 'Основной зал APEX ARENA',
+    title: 'Основной зал',
+    note: 'Show court & events',
+    group: 'CORE ARENA',
+  },
+  {
+    id: 'tennis',
+    src: tennisImage,
+    alt: 'Tennis court at APEX ARENA',
+    title: 'Tennis',
+    note: 'Premium court',
+    group: 'TRAINING & PERFORMANCE',
+  },
+  {
+    id: 'gym',
+    src: gymImage,
+    alt: 'Gym at APEX ARENA',
+    title: 'Gym',
+    note: 'Daily recurring traffic',
+    group: 'TRAINING & PERFORMANCE',
+  },
+  {
+    id: 'combat',
+    src: combatImage,
+    alt: 'Combat zone at APEX ARENA',
+    title: 'Combat zone',
+    note: 'High-frequency training',
+    group: 'TRAINING & PERFORMANCE',
+  },
+  {
+    id: 'lobby',
+    src: lobbyImage,
+    alt: 'Lobby at APEX ARENA',
+    title: 'Lobby',
+    note: 'Arrival experience',
+    group: 'EXPERIENCE & PREMIUM',
+  },
+  {
+    id: 'cafe',
+    src: cafeImage,
+    alt: 'Cafe at APEX ARENA',
+    title: 'Café',
+    note: 'Second-check revenue',
+    group: 'EXPERIENCE & PREMIUM',
+  },
+  {
+    id: 'vip',
+    src: vipViewImage,
+    alt: 'VIP viewing area at APEX ARENA',
+    title: 'VIP view',
+    note: 'Premium viewing & events',
+    group: 'EXPERIENCE & PREMIUM',
+    featured: true,
+  },
+] as const;
 
 const demandMixData = [
   { name: 'Futsal', value: 6000, color: '#f59e0b' },
@@ -141,6 +226,105 @@ const demandResearchLinks = [
     label: 'Платёжная аудитория indoor sports в Ташкенте',
     href: marketAudienceIndoorSportsPdf,
     format: 'PDF',
+  },
+] as const;
+
+const revenueArchitectureRows = [
+  {
+    zone: 'Court A / Basketball',
+    role: 'Академия + лиги + прайм-тайм',
+    value: '352,9 млн',
+    color: '#3b82f6',
+  },
+  {
+    zone: 'Court B / Futsal',
+    role: 'Академия + вечерняя лига',
+    value: '332,9 млн',
+    color: '#f59e0b',
+  },
+  {
+    zone: 'Court C / Tennis',
+    role: 'Приват + ladder + premium',
+    value: '295,0 млн',
+    color: '#e5e7eb',
+  },
+  {
+    zone: 'Gym',
+    role: 'Абонементы + персональные',
+    value: '277,6 млн',
+    color: '#22c55e',
+  },
+  {
+    zone: 'Combat Zone',
+    role: 'Групповые программы',
+    value: '243,0 млн',
+    color: '#fb923c',
+  },
+  {
+    zone: 'Café + Retail + Sponsor',
+    role: 'Сопутствующий поток',
+    value: '270,0 млн',
+    color: '#d6ae83',
+  },
+] as const;
+
+const revenueArchitectureMetrics = [
+  {
+    label: 'Выручка',
+    value: '2 089 млн сум',
+    note: 'Выручка зрелого месяца',
+    tone: 'ivory' as Tone,
+  },
+  {
+    label: 'Расходы',
+    value: '1 075 млн сум',
+    note: 'Операционные расходы',
+    tone: 'amber' as Tone,
+  },
+  {
+    label: 'Прибыль',
+    value: '1 014 млн сум',
+    note: 'Операционная прибыль ~48%',
+    tone: 'steel' as Tone,
+  },
+] as const;
+
+const playerJourneyStations = [
+  {
+    step: '01',
+    title: 'АКАДЕМИЯ',
+    primary: '1,19–2,44 млн сум / мес',
+    secondary: 'Частота: 3–4 раза в неделю',
+    circleClass: 'border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.04))] text-[#f4e9dc]/82',
+    panelClass:
+      'border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))]',
+  },
+  {
+    step: '02',
+    title: 'ЛИГА',
+    primary: '1,2–2,0 млн сум / команда',
+    secondary: 'Частота: еженедельно',
+    circleClass: 'border-[#8f5949]/55 bg-[linear-gradient(180deg,rgba(143,89,73,0.46),rgba(143,89,73,0.18))] text-[#f3d7c8]',
+    panelClass:
+      'border-[#8f5949]/30 bg-[linear-gradient(180deg,rgba(143,89,73,0.18),rgba(143,89,73,0.06))]',
+  },
+  {
+    step: '03',
+    title: 'ТУРНИР',
+    primary: 'до 252 млн сум / мес',
+    secondary: 'Частота: 2–3 раза в месяц',
+    circleClass: 'border-[#8f5b2b]/55 bg-[linear-gradient(180deg,rgba(198,123,55,0.52),rgba(198,123,55,0.2))] text-[#f7debf]',
+    panelClass:
+      'border-[#8f5b2b]/34 bg-[linear-gradient(180deg,rgba(198,123,55,0.2),rgba(198,123,55,0.07))]',
+  },
+  {
+    step: '04',
+    title: 'ДОПРОДАЖИ',
+    primary: 'Gym + кафе + приват',
+    secondary: '+30% к основному чеку',
+    circleClass: 'border-[#d2a86d]/65 bg-[linear-gradient(180deg,rgba(226,193,157,0.72),rgba(184,138,88,0.28))] text-[#fff3df]',
+    panelClass:
+      'border-[#d2a86d]/40 bg-[linear-gradient(180deg,rgba(226,193,157,0.24),rgba(184,138,88,0.08))]',
   },
 ] as const;
 
@@ -354,12 +538,60 @@ export default function InvestorDeck() {
   const isIntroSlide = currentSlide === 0;
   const isDemandSlide = currentSlide === 2;
   const isOperatingSlide = currentSlide === 3;
+  const isRevenueArchitectureSlide = currentSlide === 4;
+  const isProductsSlide = currentSlide === 5;
+  const isScheduleHeatmapSlide = currentSlide === 6;
+  const isGrowthTowerSlide = currentSlide === 7;
+  const isInvestmentRequestSlide = currentSlide === 8;
+  const isPaybackCurveSlide = currentSlide === 9;
   const isReturnsSlide = currentSlide === 10;
-  const isClosingSlide = currentSlide === 15;
+  const isObjectTourSlide = currentSlide === 11;
+  const isNetworkScaleSlide = currentSlide === 12;
+  const isRiskShieldSlide = currentSlide === 13;
+  const isDealCtaSlide = currentSlide === 14;
+  const isClosingSlide = currentSlide === 16;
   const spotlight = useMemo(
     () => getSpotlightStats(currentSlide),
     [currentSlide],
   );
+  const headerTitle = isProductsSlide
+    ? 'Клиент проходит весь цикл внутри одного объекта'
+    : isScheduleHeatmapSlide
+      ? 'Расписание — это операционный актив, а не просто план'
+      : isGrowthTowerSlide
+        ? 'Три года — три фазы роста'
+        : isInvestmentRequestSlide
+          ? 'Инвестиционный запрос: $5,15 млн'
+          : isPaybackCurveSlide
+            ? 'Возврат капитала за 30–36 месяцев'
+            : isReturnsSlide
+              ? 'Новая категория — не ещё один зал'
+              : isNetworkScaleSlide
+                ? 'Флагман — это модель для сети'
+                : isRiskShieldSlide
+                  ? 'Риски известны — и каждый закрыт'
+                  : isDealCtaSlide
+                    ? 'APEX ARENA готова к запуску'
+    : currentMeta.title;
+  const headerSubtitle = isProductsSlide
+    ? 'Каждый этап удерживает человека и увеличивает его чек'
+    : isScheduleHeatmapSlide
+      ? 'Каждое временное окно имеет свою экономику'
+      : isGrowthTowerSlide
+        ? 'Рост достигается не расширением, а доведением модели до зрелости'
+        : isInvestmentRequestSlide
+          ? 'Капитал распределён по логике запуска доходной модели, а не по статьям сметы'
+          : isPaybackCurveSlide
+            ? 'Срок возврата обеспечен базовым потоком — турниры и премиум слоты это апсайд'
+            : isReturnsSlide
+              ? 'APEX ARENA собирает полный спортивный цикл внутри одного объекта, одного бренда и одного календаря'
+              : isNetworkScaleSlide
+                ? 'После запуска ценность создаёт не один объект, а способность тиражировать проверенную модель'
+                : isRiskShieldSlide
+                  ? 'Модель проектировалась с учётом downside сценариев, а не только базового'
+                  : isDealCtaSlide
+                    ? 'Первый премиальный мультиспортивный комплекс Ташкента — с проверенной экономикой и структурированным инвестиционным запросом'
+    : currentMeta.subtitle;
 
   useEffect(() => {
     if (!isResearchMenuOpen) return;
@@ -472,24 +704,28 @@ export default function InvestorDeck() {
                     isClosingSlide ? 'max-w-[980px] xl:text-[52px]' : 'max-w-4xl xl:text-[54px]'
                   }`}
                 >
-                  {currentMeta.title}
+                  {headerTitle}
                 </h1>
-                {currentMeta.subtitle ? (
-                  isDemandSlide ? (
+                {headerSubtitle ? (
+                  isDemandSlide || isRevenueArchitectureSlide ? (
                     <div className="mt-4 flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between xl:gap-6">
                       <p className="max-w-3xl text-[15px] leading-7 text-[#e2d4c4]/74 sm:text-[17px]">
-                        {currentMeta.subtitle}
+                        {headerSubtitle}
                       </p>
-                      <DemandResearchMenu
-                        open={isResearchMenuOpen}
-                        onToggle={() => setIsResearchMenuOpen((value) => !value)}
-                        onClose={() => setIsResearchMenuOpen(false)}
-                        containerRef={researchMenuRef}
-                      />
+                      {isDemandSlide ? (
+                        <DemandResearchMenu
+                          open={isResearchMenuOpen}
+                          onToggle={() => setIsResearchMenuOpen((value) => !value)}
+                          onClose={() => setIsResearchMenuOpen(false)}
+                          containerRef={researchMenuRef}
+                        />
+                      ) : (
+                        <FinancialModelButton href={fullFinancialModelPdf} />
+                      )}
                     </div>
                   ) : (
                     <p className="mt-4 max-w-4xl text-[15px] leading-7 text-[#e2d4c4]/74 sm:text-[17px]">
-                      {currentMeta.subtitle}
+                      {headerSubtitle}
                     </p>
                   )
                 ) : null}
@@ -512,7 +748,7 @@ export default function InvestorDeck() {
               >
                 {isOperatingSlide ? (
                   <OperatingDailyCycleBlock />
-                ) : isReturnsSlide || isClosingSlide ? null : (
+                ) : isReturnsSlide || isObjectTourSlide || isNetworkScaleSlide || isRiskShieldSlide || isDealCtaSlide || isClosingSlide || isRevenueArchitectureSlide || isProductsSlide || isScheduleHeatmapSlide || isGrowthTowerSlide || isInvestmentRequestSlide || isPaybackCurveSlide ? null : (
                   <NarrativeCard label={narrative.leadLabel} title={narrative.leadTitle} body={narrative.leadBody} />
                 )}
                 {isDemandSlide ? (
@@ -577,14 +813,16 @@ function renderSlide(index: number) {
     case 10:
       return <ReturnsSlide />;
     case 11:
-      return <WhyWorksSlide />;
+      return <ObjectTourSlide />;
     case 12:
-      return <CompetitionSlide />;
+      return <WhyWorksSlide />;
     case 13:
-      return <InvestmentSlide />;
+      return <CompetitionSlide />;
     case 14:
-      return <ExpansionSlide />;
+      return <InvestmentSlide />;
     case 15:
+      return <ExpansionSlide />;
+    case 16:
       return <ClosingSlide />;
     default:
       return null;
@@ -821,6 +1059,19 @@ function DemandResearchMenu({
   );
 }
 
+function FinancialModelButton({ href }: { href: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex w-full items-center justify-between gap-3 rounded-[20px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] px-4 py-3 text-left text-sm text-[#f5e9d9]/84 shadow-[0_16px_38px_rgba(0,0,0,0.18)] backdrop-blur-xl transition duration-300 hover:-translate-y-[1px] hover:border-white/16 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.04))] hover:shadow-[0_22px_54px_rgba(0,0,0,0.24)] xl:min-w-[280px] xl:w-auto"
+    >
+      <span>Финансовая модель →</span>
+    </a>
+  );
+}
+
 function DemandResearchMenuContent({ onClose }: { onClose: () => void }) {
   return (
     <>
@@ -953,96 +1204,68 @@ function OperatingSlide() {
 }
 
 function LayoutSlide() {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const touchStartX = useRef<number | null>(null);
-
-  const activeSlide = layoutCarouselSlides[activeIndex];
-  const showPrevSlide = () => setActiveIndex((value) => (value - 1 + layoutCarouselSlides.length) % layoutCarouselSlides.length);
-  const showNextSlide = () => setActiveIndex((value) => (value + 1) % layoutCarouselSlides.length);
-  const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
-    touchStartX.current = event.touches[0]?.clientX ?? null;
-  };
-  const handleTouchEnd = (event: React.TouchEvent<HTMLDivElement>) => {
-    if (touchStartX.current === null) return;
-
-    const deltaX = (event.changedTouches[0]?.clientX ?? touchStartX.current) - touchStartX.current;
-    touchStartX.current = null;
-
-    if (Math.abs(deltaX) < 48) return;
-    if (deltaX > 0) {
-      showPrevSlide();
-      return;
-    }
-    showNextSlide();
-  };
-  const handleTouchCancel = () => {
-    touchStartX.current = null;
-  };
-
   return (
-    <div className="grid gap-5">
-      <div className="rounded-[30px] border border-white/10 bg-[rgba(255,255,255,0.03)] p-5 shadow-[0_18px_50px_rgba(0,0,0,0.18)]">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <div className="text-[11px] uppercase tracking-[0.34em] text-[#c7b39b]/54">Swipe to compare, click to enlarge</div>
-            <div className="mt-3 text-[22px] font-semibold text-[#fbf2e5] sm:text-[26px]">Карусель планов и структуры доходов</div>
+    <div className="space-y-5">
+      <div className="grid gap-5 xl:grid-cols-[1.08fr_0.72fr] xl:items-start">
+        <div className="overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.018))] shadow-[0_14px_40px_rgba(0,0,0,0.14)]">
+          <div className="hidden grid-cols-[8px_minmax(0,1.15fr)_minmax(0,0.95fr)_110px] gap-5 border-b border-white/8 px-6 py-4 text-[10px] uppercase tracking-[0.26em] text-[#c7b39b]/44 lg:grid">
+            <div />
+            <div>Зона</div>
+            <div>Роль в модели</div>
+            <div className="text-right">Выручка</div>
           </div>
-          <div className="flex gap-2">
-            <button
-              type="button"
-              onClick={showPrevSlide}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-white/80 transition hover:bg-white/[0.12] hover:text-white"
-              aria-label="Предыдущий слайд"
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </button>
-            <button
-              type="button"
-              onClick={showNextSlide}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-white/80 transition hover:bg-white/[0.12] hover:text-white"
-              aria-label="Следующий слайд"
-            >
-              <ArrowRight className="h-5 w-5" />
-            </button>
+
+          <div className="divide-y divide-white/8">
+            {revenueArchitectureRows.map((row) => (
+              <div
+                key={row.zone}
+                className="group px-5 py-4 transition duration-200 hover:bg-white/[0.028] sm:px-6"
+              >
+                <div className="hidden grid-cols-[8px_minmax(0,1.15fr)_minmax(0,0.95fr)_110px] items-center gap-5 lg:grid">
+                  <span
+                    aria-hidden="true"
+                    className="h-11 w-[5px] rounded-full opacity-90 transition duration-200 group-hover:opacity-100"
+                    style={{ backgroundColor: row.color }}
+                  />
+                  <div className="text-[15px] leading-6 text-[#f6ede1]/82">{row.zone}</div>
+                  <div className="text-[14px] leading-6 text-[#cfbfac]/60">{row.role}</div>
+                  <div className="text-right text-[15px] font-medium tabular-nums text-[#f4e3ca]/84">{row.value}</div>
+                </div>
+
+                <div className="flex items-start gap-3 lg:hidden">
+                  <span
+                    aria-hidden="true"
+                    className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full opacity-90"
+                    style={{ backgroundColor: row.color }}
+                  />
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="text-[15px] leading-6 text-[#f6ede1]/82">{row.zone}</div>
+                      <div className="shrink-0 text-[15px] font-medium tabular-nums text-[#f4e3ca]/84">{row.value}</div>
+                    </div>
+                    <div className="mt-1.5 text-[14px] leading-6 text-[#cfbfac]/60">{row.role}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="mt-6" onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} onTouchCancel={handleTouchCancel}>
-          <LayoutCarousel slide={activeSlide} />
-        </div>
-
-        <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
-          {layoutCarouselSlides.map((slide, index) => (
-            <button
-              key={slide.id}
-              type="button"
-              onClick={() => setActiveIndex(index)}
-              className={`rounded-full border px-3 py-2 text-xs uppercase tracking-[0.24em] transition ${
-                index === activeIndex
-                  ? `${toneStyles[slide.tone].ring} bg-white/[0.08] text-[#fbf2e5]`
-                  : 'border-white/10 bg-white/[0.03] text-[#d6c7b5]/62 hover:bg-white/[0.08] hover:text-[#fbf2e5]'
-              }`}
-              aria-label={`Перейти к слайду ${slide.title}`}
-            >
-              {String(index + 1).padStart(2, '0')}
-            </button>
+        <div className="space-y-3.5">
+          {revenueArchitectureMetrics.map((metric) => (
+            <MetricCard
+              key={metric.label}
+              label={metric.label}
+              value={metric.value}
+              note={metric.note}
+              tone={metric.tone}
+            />
           ))}
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {zoneRevenueRows.map((row) => (
-          <div key={row.zone} className={`rounded-[24px] border p-4 ${toneStyles[row.tone].ring} bg-white/[0.03]`}>
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <div className="text-[16px] text-[#fbf1e3]/82">{row.zone}</div>
-                <div className="mt-1 text-sm text-[#cfbaa2]/62">{row.role}</div>
-              </div>
-              <div className={`text-sm ${toneStyles[row.tone].text}`}>{row.value}</div>
-            </div>
-            <div className="mt-3 text-sm leading-6 text-[#e1d1bf]/68">{row.note}</div>
-          </div>
-        ))}
+      <div className="rounded-[22px] border border-white/8 bg-[rgba(255,255,255,0.028)] px-5 py-4 text-center text-[14px] leading-6 text-[#d8c9b7]/64 sm:px-6">
+        Ни одна зона не является критичной — при выпадении одного сегмента система сохраняет доходность
       </div>
     </div>
   );
@@ -1158,461 +1381,1399 @@ function LayoutCarousel({ slide }: { slide: LayoutCarouselSlide }) {
 }
 
 function ProductsSlide() {
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const goPrev = () => setActiveIndex((value) => (value - 1 + monetizationCarouselSlides.length) % monetizationCarouselSlides.length);
-  const goNext = () => setActiveIndex((value) => (value + 1) % monetizationCarouselSlides.length);
-
   return (
     <div className="space-y-5">
-      <div className="rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.02))] p-5 shadow-[0_18px_50px_rgba(0,0,0,0.18)] sm:p-6">
-        <div className="text-[11px] uppercase tracking-[0.34em] text-[#c7b39b]/54">Ключевые денежные потоки</div>
-        <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {monetizationMoneyFlows.map((item) => (
-            <div key={item.title} className={`rounded-[24px] border p-4 sm:p-5 ${toneStyles[item.tone].ring} ${toneStyles[item.tone].soft}`}>
-              <div className="text-[10px] uppercase tracking-[0.28em] text-[#c7b39b]/48">Поток</div>
-              <div className="mt-3 text-[18px] leading-tight text-[#fbf2e5]/88">{item.title}</div>
-              <div className={`mt-4 text-[22px] leading-tight sm:text-[26px] ${toneStyles[item.tone].text}`}>{item.value}</div>
+      <div className="overflow-hidden rounded-[32px] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.05),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(198,123,55,0.08),transparent_32%),linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-5 shadow-[0_20px_56px_rgba(0,0,0,0.2)] sm:p-6 xl:px-7 xl:py-7">
+        <div className="space-y-6">
+          <div className="text-[11px] uppercase tracking-[0.34em] text-[#c7b39b]/54">Путь игрока</div>
+          <div className="overflow-x-auto pb-2">
+            <div className="relative min-w-[760px] px-1">
+              <div className="pointer-events-none absolute left-[calc(12.5%+24px)] right-[calc(12.5%+24px)] top-6">
+                <div className="h-px rounded-full bg-white/10" />
+                <div className="mt-[-1px] grid grid-cols-3 gap-4">
+                  <div className="h-[2px] rounded-full bg-[linear-gradient(90deg,rgba(255,255,255,0.14),rgba(143,89,73,0.48))]" />
+                  <div className="h-[3px] rounded-full bg-[linear-gradient(90deg,rgba(143,89,73,0.54),rgba(198,123,55,0.72))]" />
+                  <div className="h-[4px] rounded-full bg-[linear-gradient(90deg,rgba(198,123,55,0.76),rgba(226,193,157,0.96))]" />
+                </div>
+              </div>
+
+              <div className="relative grid grid-cols-4 gap-4 xl:gap-5">
+                {playerJourneyStations.map((station) => (
+                  <div key={station.step} className="flex flex-col items-center text-center">
+                    <div
+                      className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-full border text-[13px] tracking-[0.24em] shadow-[0_14px_38px_rgba(0,0,0,0.18)] ${station.circleClass}`}
+                    >
+                      {station.step}
+                    </div>
+                    <div
+                      className={`mt-4 flex w-full min-h-[170px] flex-col justify-start rounded-[26px] border px-4 py-5 shadow-[0_14px_38px_rgba(0,0,0,0.14)] sm:px-5 ${station.panelClass}`}
+                    >
+                      <div className="text-[18px] leading-tight text-[#fbf2e5]/88 xl:text-[19px]">{station.title}</div>
+                      <div className="mt-4 text-[14px] leading-6 text-[#e3d4c3]/72 xl:text-[15px]">{station.primary}</div>
+                      <div className="mt-1.5 text-[13px] leading-6 text-[#d6c6b4]/58 xl:text-[14px]">{station.secondary}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
+          </div>
+
+          <div className="flex justify-center">
+            <div className={`w-full max-w-[420px] rounded-[26px] border p-5 text-center ${toneStyles['amber'].ring} ${toneStyles['amber'].soft}`}>
+              <div className="text-[11px] uppercase tracking-[0.32em] text-[#c4ae97]/52">Эффект удержания</div>
+              <div className={`mt-4 text-[34px] leading-none ${toneStyles['amber'].text}`}>2,3×</div>
+              <div className="mt-4 text-[15px] leading-7 text-[#e2d4c3]/74">
+                Клиент закрытый внутри экосистемы тратит <span className={toneStyles['amber'].text}>в 2,3× больше</span> чем разовый посетитель
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-4 shadow-[0_22px_60px_rgba(0,0,0,0.22)] sm:p-5">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <div className="text-[11px] uppercase tracking-[0.34em] text-[#c7b39b]/54">Главный модуль слайда</div>
-            <div className="mt-2 text-[22px] leading-tight text-[#fbf2e5] sm:text-[26px]">Как работает спортивный цикл внутри объекта</div>
-          </div>
-
-          <div className="hidden items-center gap-2 sm:flex">
-            <button
-              type="button"
-              onClick={goPrev}
-              aria-label="Предыдущий слайд карусели"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-[#f3e8d8]/78 transition hover:border-white/16 hover:bg-white/[0.08]"
-            >
-              <ArrowLeft className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={goNext}
-              aria-label="Следующий слайд карусели"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-[#f3e8d8]/78 transition hover:border-white/16 hover:bg-white/[0.08]"
-            >
-              <ArrowRight className="h-4 w-4" />
-            </button>
-          </div>
-        </div>
-
-        <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,0.58fr)_minmax(320px,0.42fr)] lg:items-stretch">
-          <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#0c1015] shadow-[0_18px_50px_rgba(0,0,0,0.24)]">
-            <div
-              className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${activeIndex * 100}%)` }}
-            >
-              {monetizationCarouselSlides.map((slide) => (
-                <div key={slide.title} className="min-w-full">
-                  <div className="relative aspect-[16/10] overflow-hidden bg-[#0c1015]">
-                    <img src={slide.image} alt={slide.alt} className="h-full w-full object-cover" />
-                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.02),rgba(0,0,0,0.12)_38%,rgba(0,0,0,0.56))]" />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="flex min-h-[340px] flex-col rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.025))] p-5 sm:p-6">
-            <div className="overflow-hidden flex-1">
-              <div
-                className="flex h-full transition-transform duration-500 ease-out"
-                style={{ transform: `translateX(-${activeIndex * 100}%)` }}
-              >
-                {monetizationCarouselSlides.map((slide) => (
-                  <div key={slide.title} className="flex min-w-full flex-col justify-between">
-                    <div>
-                      <div className="inline-flex rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-[10px] uppercase tracking-[0.28em] text-[#d7c1a8]/62">
-                        {slide.label}
-                      </div>
-                      <div className="mt-4 text-[28px] leading-tight text-[#fbf2e5] sm:text-[34px]">{slide.title}</div>
-                      <div className="mt-5 max-w-xl text-[15px] leading-7 text-[#e3d4c3]/74 sm:text-[16px]">{slide.body}</div>
-                    </div>
-
-                    <div className="mt-6 rounded-[22px] border border-white/10 bg-white/[0.04] p-4">
-                      <div className="text-[11px] uppercase tracking-[0.3em] text-[#c7b39b]/48">Этап внутри цикла</div>
-                      <div className="mt-2 text-sm leading-6 text-[#ece0d0]/74">
-                        Каждый следующий слой усиливает уже созданный поток и переводит его в более устойчивую выручку.
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-5 flex items-center justify-between gap-4">
-              <div className="flex items-center gap-2">
-                {monetizationCarouselSlides.map((slide, index) => (
-                  <button
-                    key={slide.title}
-                    type="button"
-                    onClick={() => setActiveIndex(index)}
-                    aria-label={`Перейти к слайду ${index + 1}`}
-                    className={`h-2.5 rounded-full transition-all ${
-                      index === activeIndex ? 'w-8 bg-[#e2c19d]' : 'w-2.5 bg-white/18 hover:bg-white/28'
-                    }`}
-                  />
-                ))}
-              </div>
-
-              <div className="flex items-center gap-2 sm:hidden">
-                <button
-                  type="button"
-                  onClick={goPrev}
-                  aria-label="Предыдущий слайд карусели"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-[#f3e8d8]/78 transition hover:border-white/16 hover:bg-white/[0.08]"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={goNext}
-                  aria-label="Следующий слайд карусели"
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.05] text-[#f3e8d8]/78 transition hover:border-white/16 hover:bg-white/[0.08]"
-                >
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div className="rounded-[24px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.018))] px-5 py-4 text-center text-sm leading-6 text-[#d8c9b7]/66 sm:px-6">
+        Удержание клиента внутри объекта = рост LTV без роста маркетинговых затрат
       </div>
     </div>
   );
 }
 
 function RevenueSlide() {
-  const maxValue = Math.max(...revenueStreams.map((item) => item.value));
+  const dayHeatmapBands = [
+    {
+      hours: '08:00–15:00',
+      title: 'Академия / школы / персональные',
+      badge: 'Базовая загрузка',
+      panelClass:
+        'border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.028),rgba(255,255,255,0.012))]',
+      badgeClass: 'border-white/8 bg-white/[0.04] text-[#d8cab9]/58',
+      heightClass: 'min-h-[88px]',
+      titleClass: 'text-[#f6ede2]/80',
+    },
+    {
+      hours: '15:00–20:00',
+      title: 'Академия детей и подростков',
+      badge: 'Основной поток',
+      panelClass:
+        'border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.022))]',
+      badgeClass: 'border-white/10 bg-white/[0.05] text-[#eadbcc]/66',
+      heightClass: 'min-h-[88px]',
+      titleClass: 'text-[#fbf2e6]/84',
+    },
+    {
+      hours: '20:00–23:00',
+      title: 'Лиги / премиальные слоты',
+      badge: 'Максимальная выручка',
+      panelClass:
+        'border-[#a66e34]/48 bg-[linear-gradient(90deg,rgba(198,123,55,0.24),rgba(226,193,157,0.11)),linear-gradient(180deg,rgba(255,255,255,0.075),rgba(255,255,255,0.03))] shadow-[0_18px_52px_rgba(198,123,55,0.16)]',
+      badgeClass:
+        'border-[#d0aa75]/34 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.04))] text-[#fff0d8]',
+      heightClass: 'min-h-[124px]',
+      titleClass: 'text-[#fff4e7]',
+      accent: true,
+    },
+    {
+      hours: '23:00–01:00',
+      title: 'Ночные сессии',
+      badge: 'Контролируемая монетизация',
+      panelClass:
+        'border-[#8f5949]/18 bg-[linear-gradient(180deg,rgba(143,89,73,0.07),rgba(255,255,255,0.018))]',
+      badgeClass: 'border-white/8 bg-white/[0.04] text-[#dcc8b6]/60',
+      heightClass: 'min-h-[88px]',
+      titleClass: 'text-[#f8eee2]/82',
+    },
+    {
+      hours: '01:00–08:00',
+      title: 'Ночной абонемент',
+      badge: 'Дополнительная маржа',
+      panelClass:
+        'border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.026),rgba(255,255,255,0.01))]',
+      badgeClass: 'border-white/8 bg-white/[0.04] text-[#d8cab9]/58',
+      heightClass: 'min-h-[88px]',
+      titleClass: 'text-[#f5ecdf]/78',
+    },
+  ] as const;
+
   return (
-    <div className="grid gap-5 xl:grid-cols-[1.08fr_0.92fr]">
-      <div className="rounded-[30px] border border-white/10 bg-white/[0.035] p-5">
-        <div className="text-[11px] uppercase tracking-[0.34em] text-[#c7b39b]/54">Monthly revenue mix</div>
-        <div className="mt-5 space-y-4">
-          {revenueStreams.map((stream) => (
-            <RevenueBar key={stream.label} item={stream} maxValue={maxValue} />
-          ))}
+    <div className="space-y-5">
+      <div className="grid gap-5 xl:grid-cols-[1.08fr_0.72fr] xl:items-start">
+        <div className="rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.018))] p-5 sm:p-6">
+          <div className="space-y-3">
+            {dayHeatmapBands.map((band) => (
+              <div
+                key={band.hours}
+                className={`relative overflow-hidden rounded-[24px] border px-4 py-4 sm:px-5 ${band.heightClass} ${band.panelClass}`}
+              >
+                {band.accent ? (
+                  <div className="absolute bottom-3 left-0 top-3 w-[5px] rounded-r-full bg-[linear-gradient(180deg,#b87333,#f0c48f)]" />
+                ) : null}
+
+                <div className="flex h-full flex-col justify-center gap-3 sm:grid sm:grid-cols-[108px_minmax(0,1fr)_auto] sm:items-center sm:gap-5">
+                  <div className="font-mono text-[11px] tracking-[0.18em] text-[#d8c9b7]/56">
+                    {band.hours}
+                  </div>
+                  <div className={`text-[17px] leading-6 sm:text-[19px] ${band.titleClass}`}>
+                    {band.title}
+                  </div>
+                  <div
+                    className={`inline-flex w-fit items-center rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.22em] ${band.badgeClass}`}
+                  >
+                    {band.badge}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-4 xl:self-center">
+          <MetricCard
+            label="ПИКОВЫЕ ЧАСЫ"
+            value="~45%"
+            note="месячной выручки дают часы 20:00–23:00 при одновременной работе 3 кортов"
+            tone="amber"
+          />
+
+          <div className={`rounded-[26px] border p-5 ${toneStyles['ivory'].ring} ${toneStyles['ivory'].soft}`}>
+            <div className="text-[11px] uppercase tracking-[0.32em] text-[#c4ae97]/52">БУДНИ VS ВЫХОДНЫЕ</div>
+            <div className="mt-4 text-[16px] leading-7 text-[#f3e7d6]/82">
+              Будни формируют стабильный доход
+            </div>
+            <div className="mt-2 text-[16px] leading-7 text-[#decebc]/68">
+              Выходные — турниры и пик выручки
+            </div>
+          </div>
         </div>
       </div>
-      <div className="space-y-4">
-        <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
-          <MetricCard label="Revenue" value={`${formatBillion(monthlyRevenueSummary)} млрд`} note="Зрелый месяц по полной модели." tone="amber" />
-          <MetricCard label="Costs" value={`${formatBillion(monthlyCostSummary)} млрд`} note="Операционные расходы зрелого месяца." tone="steel" />
-          <MetricCard label="Operating profit" value={`${formatBillion(monthlyProfitSummary)} млрд`} note="Доход после monthly operating costs." tone="copper" />
-        </div>
-        <TextBlock title="Почему модель дохода устойчива" body="Модель не завязана на одном источнике дохода.
-Игровые площадки дают основной объём и вечернюю загрузку.
-Тренажёрный зал и боевые искусства обеспечивают стабильный ежедневный поток.
-Турниры и дополнительные сервисы усиливают доход в выходные и во время событий." />
+
+      <div className="rounded-[22px] border border-white/8 bg-[rgba(255,255,255,0.028)] px-5 py-4 text-center text-[14px] leading-6 text-[#d8c9b7]/64 sm:px-6">
+        Расписание управляется как финансовый инструмент — каждый час продаётся по своей цене и своей аудитории
       </div>
     </div>
   );
 }
 
 function UnitEconomicsSlide() {
+  const maxRevenue = 35;
+  const axisTicks = [35, 30, 20, 10, 0] as const;
+  const growthTowers = [
+    {
+      year: 'ГОД 1',
+      title: 'ЗАПУСК',
+      revenue: '19,0 млрд',
+      revenueValue: 19,
+      profit: 'Операционная прибыль: 4,2 млрд',
+      note: 'Академия и абонементы',
+      panelClass:
+        'border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.018))]',
+      revenueClass: 'text-[#f4eadc]/84',
+    },
+    {
+      year: 'ГОД 2',
+      title: 'РАЗГОН',
+      revenue: '25,1 млрд',
+      revenueValue: 25.1,
+      profit: 'Операционная прибыль: 8,0 млрд',
+      note: 'Вечерняя загрузка + лиги',
+      panelClass:
+        'border-[#8f5b2b]/30 bg-[linear-gradient(180deg,rgba(198,123,55,0.22),rgba(198,123,55,0.08))]',
+      revenueClass: 'text-[#f0bf8f]',
+    },
+    {
+      year: 'ГОД 3',
+      title: 'ЗРЕЛОСТЬ',
+      revenue: '31,8 млрд',
+      revenueValue: 31.8,
+      profit: 'Операционная прибыль: 11,2 млрд',
+      note: 'Турниры + premium slots',
+      panelClass:
+        'border-[#c98a45]/48 bg-[linear-gradient(180deg,rgba(226,193,157,0.28),rgba(198,123,55,0.18))] shadow-[0_18px_56px_rgba(198,123,55,0.16)]',
+      revenueClass: 'text-[#fff1dd]',
+    },
+  ] as const;
+
   return (
     <div className="space-y-5">
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-6 xl:gap-6">
-        {unitEconomicsRows.map((row, index) => {
-          const isPrimary = row.zone === 'Gym';
-          const isPrimeTime = row.zone === 'Court A / Basketball';
-          const isWideBottomCard = unitEconomicsRows.length === 5 && index >= 3;
-
-          return (
-            <div
-              key={row.zone}
-              className={`flex min-h-[220px] flex-col justify-between rounded-[30px] border p-6 sm:p-7 ${toneStyles[row.tone].ring} ${toneStyles[row.tone].soft} ${
-                isWideBottomCard ? 'xl:col-span-3' : 'xl:col-span-2'
-              } ${
-                isPrimary ? 'shadow-[0_0_0_1px_rgba(197,117,88,0.14),0_28px_80px_rgba(197,117,88,0.22)]' : ''
-              } ${isPrimeTime ? 'shadow-[0_0_0_1px_rgba(97,131,155,0.14),0_24px_70px_rgba(97,131,155,0.18)]' : ''}`}
-            >
-              <div>
-                <div className="flex items-center gap-3">
-                  <span aria-hidden="true" className="text-[18px] opacity-70 grayscale">
-                    {unitEconomicsIconByZone[row.zone]}
-                  </span>
-                  <div className="text-[24px] leading-tight text-[#faf0e2]/88 sm:text-[28px]">{row.zone}</div>
-                </div>
-                <div className="mt-5 text-[16px] leading-7 text-[#e2d3c2]/72">
-                  {unitEconomicsRoleByZone[row.zone] ?? row.note}
-                </div>
+      <div className="grid gap-5 xl:grid-cols-[1.18fr_0.52fr] xl:items-start">
+        <div className="overflow-x-auto pb-1">
+          <div className="min-w-[760px] rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.018))] p-5 sm:p-6">
+            <div className="grid grid-cols-[76px_minmax(0,1fr)] gap-4">
+              <div className="relative h-[420px] sm:h-[470px]">
+                <div className="absolute bottom-0 right-0 top-0 w-px bg-white/8" />
+                {axisTicks.map((tick) => {
+                  const bottom = `${(tick / maxRevenue) * 100}%`;
+                  return (
+                    <div
+                      key={tick}
+                      className={`absolute left-0 right-0 text-right ${tick === 0 ? 'translate-y-1/2' : '-translate-y-1/2'}`}
+                      style={{ bottom }}
+                    >
+                      <div className="pr-3 text-[11px] uppercase tracking-[0.14em] text-[#c7b39b]/46">
+                        {tick === 0 ? '0' : `${tick} млрд`}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
 
-              <div className={`mt-8 leading-none ${toneStyles[row.tone].text} ${isPrimary ? 'text-[32px] sm:text-[38px]' : 'text-[28px] sm:text-[34px]'}`}>
-                {row.output}
+              <div>
+                <div className="relative h-[420px] sm:h-[470px]">
+                  {axisTicks.map((tick) => {
+                    const bottom = `${(tick / maxRevenue) * 100}%`;
+                    return (
+                      <div
+                        key={tick}
+                        className={`absolute left-0 right-0 ${tick === 0 ? 'translate-y-0' : '-translate-y-1/2'}`}
+                        style={{ bottom }}
+                      >
+                        <div className="h-px w-full bg-white/[0.045]" />
+                      </div>
+                    );
+                  })}
+
+                  <div className="absolute inset-0 grid grid-cols-3 items-end gap-4 sm:gap-5">
+                    {growthTowers.map((tower) => (
+                      <div key={tower.year} className="flex h-full min-w-0 flex-col justify-end">
+                        <div
+                          className={`rounded-[28px] border px-4 pb-5 pt-4 sm:px-5 sm:pb-6 sm:pt-5 ${tower.panelClass}`}
+                          style={{ height: `${(tower.revenueValue / maxRevenue) * 100}%` }}
+                        >
+                          <div className="text-[10px] uppercase tracking-[0.28em] text-[#cbb49b]/50">{tower.year}</div>
+                          <div className="mt-3 text-[24px] leading-tight text-[#fbf2e6]/88 sm:text-[28px]">
+                            {tower.title}
+                          </div>
+                          <div className={`mt-5 text-[34px] leading-none sm:text-[42px] ${tower.revenueClass}`}>
+                            {tower.revenue}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-4 grid grid-cols-3 gap-4 sm:gap-5">
+                  {growthTowers.map((tower) => (
+                    <div key={tower.title} className="min-w-0 text-center">
+                      <div className="text-[13px] leading-6 text-[#e2d4c4]/70">{tower.profit}</div>
+                      <div className="mt-1 text-[13px] leading-6 text-[#cbbba8]/54">{tower.note}</div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          );
-        })}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <MetricCard
+            label="3 ГОДА ИТОГО"
+            value="75,9 млрд"
+            note="Совокупная выручка за три года"
+            tone="amber"
+          />
+          <MetricCard
+            label="ПРИБЫЛЬ ИТОГО"
+            value="23,4 млрд"
+            note="Совокупная операционная прибыль за три года"
+            tone="ivory"
+          />
+        </div>
+      </div>
+
+      <div className="rounded-[22px] border border-white/8 bg-[rgba(255,255,255,0.028)] px-5 py-4 text-center text-[14px] leading-6 text-[#d8c9b7]/64 sm:px-6">
+        Рост обеспечивается управлением загрузкой и расписанием — без открытия новых объектов
       </div>
     </div>
   );
 }
 
 function ScheduleSlide() {
+  const investmentBars = [
+    {
+      label: 'Земельный участок',
+      value: '$2,50 млн · 49%',
+      width: '49%',
+      fillClass: 'bg-[linear-gradient(90deg,rgba(255,255,255,0.12),rgba(255,255,255,0.05))]',
+    },
+    {
+      label: 'Строительство (shell + MEP)',
+      value: '$1,19 млн · 23%',
+      width: '23%',
+      fillClass: 'bg-[linear-gradient(90deg,rgba(143,89,73,0.5),rgba(143,89,73,0.2))]',
+    },
+    {
+      label: 'Спортивные покрытия и оснащение',
+      value: '$0,67 млн · 13%',
+      width: '13%',
+      fillClass: 'bg-[linear-gradient(90deg,rgba(198,123,55,0.56),rgba(198,123,55,0.24))]',
+    },
+    {
+      label: 'Fit-out + FF&E + системы',
+      value: '$0,52 млн · 10%',
+      width: '10%',
+      fillClass: 'bg-[linear-gradient(90deg,rgba(214,174,131,0.78),rgba(198,123,55,0.38))]',
+    },
+    {
+      label: 'Резерв (contingency)',
+      value: '$0,24 млн · 5%',
+      width: '5%',
+      fillClass: 'bg-[linear-gradient(90deg,rgba(241,223,196,0.98),rgba(214,174,131,0.82))]',
+    },
+  ] as const;
+
   return (
     <div className="space-y-5">
-      <div className="grid gap-5 xl:grid-cols-[1.12fr_0.88fr]">
-        <div className="rounded-[30px] border border-white/10 bg-white/[0.045] p-5 sm:p-6">
-          <div className="text-[11px] uppercase tracking-[0.34em] text-[#c7b39b]/54">Структура дня</div>
-          <div className="mt-5 space-y-3">
-            {scheduleBands.map((band) => (
-              <div key={band.hours} className={`rounded-[22px] border px-4 py-4 sm:px-5 ${toneStyles[band.tone].ring} ${toneStyles[band.tone].soft}`}>
-                <div className="flex flex-col gap-3 sm:gap-4">
-                  <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
-                    <div>
-                      <div className="text-[11px] uppercase tracking-[0.28em] text-[#d6c1a6]/52">{band.hours}</div>
-                      <div className="mt-2 text-[16px] leading-6 text-[#faf0e2]/86 sm:text-[17px]">{band.title}</div>
-                    </div>
-                    <div className="text-sm text-[#decfbe]/68">→ {band.role}</div>
+      <div className="grid gap-5 xl:grid-cols-[1.08fr_0.72fr] xl:items-start">
+        <div className="rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.018))] p-5 sm:p-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:gap-6">
+            <div className="text-[48px] leading-none text-[#f1dfc4] sm:text-[64px] xl:text-[72px]">$5,15 млн</div>
+            <div className="pb-1 text-[12px] leading-5 text-[#c7b7a5]/54">
+              базовый сценарий · без налогов и разрешений
+            </div>
+          </div>
+
+          <div className="mt-7 space-y-4">
+            {investmentBars.map((bar) => (
+              <div key={bar.label} className="space-y-2">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+                  <div className="text-[15px] leading-6 text-[#f4eadc]/82 sm:text-[16px]">{bar.label}</div>
+                  <div className="shrink-0 text-[14px] font-medium tabular-nums text-[#e5d4c0]/72">
+                    {bar.value}
                   </div>
-                  <div className="h-2.5 rounded-full bg-white/8">
-                    <div className={`h-full rounded-full ${toneStyles[band.tone].bar}`} style={{ width: `${band.intensity}%` }} />
-                  </div>
+                </div>
+
+                <div className="h-3 overflow-hidden rounded-full bg-white/[0.055]">
+                  <div className={`h-full rounded-full ${bar.fillClass}`} style={{ width: bar.width }} />
                 </div>
               </div>
             ))}
+          </div>
+
+          <div className="mt-6 text-[12px] leading-6 text-[#bfae9b]/50">
+            Земля зафиксирована по ТЗ · Операционный CAPEX без земли: $2,65 млн · Курс ЦБ на 25.04.2026:
+            {' '}
+            1 USD = 12 015,96 UZS
           </div>
         </div>
 
-        <div className="rounded-[30px] border border-white/10 bg-white/[0.05] p-5 sm:p-6">
-          <div className="text-[11px] uppercase tracking-[0.34em] text-[#c7b39b]/54">Турнирная модель выходных</div>
-          <div className="mt-5 space-y-3">
-            {weekendWindows.map((window) => (
-              <div key={window.label} className="flex items-center justify-between gap-5 rounded-[20px] border border-white/8 bg-white/[0.035] px-4 py-4 sm:px-5">
-                <div className="flex min-w-0 items-center gap-3">
-                  <span aria-hidden="true" className={`h-2.5 w-2.5 shrink-0 rounded-full ${toneStyles[window.tone].bar}`} />
-                  <div className="text-[15px] text-[#faf0e1]/84 sm:text-[16px]">{window.label}</div>
-                </div>
-                <div className={`shrink-0 text-sm sm:text-[15px] ${toneStyles[window.tone].text}`}>{window.logic}</div>
-              </div>
-            ))}
-          </div>
+        <div className="space-y-4">
+          <MetricCard
+            label="ОБЩИЙ ЗАПРОС"
+            value="$5,15 млн"
+            note="Базовый сценарий включая земельный участок"
+            tone="amber"
+          />
+
+          <MetricCard
+            label="БЕЗ ЗЕМЛИ"
+            value="$2,65 млн"
+            note="Операционная часть — строительство, оснащение, запуск, резерв"
+            tone="steel"
+          />
+
+          <MetricCard
+            label="ВОЗВРАТ"
+            value="30–36 мес"
+            note="При достижении плановой загрузки базового сценария"
+            tone="ivory"
+          />
         </div>
       </div>
 
-      <div className="text-center text-sm leading-6 text-[#d8c9b7]/66">
-        Будни формируют стабильный доход, выходные — усиливают выручку
+      <div className="rounded-[22px] border border-white/8 bg-[rgba(255,255,255,0.028)] px-5 py-4 text-center text-[14px] leading-6 text-[#d8c9b7]/64 sm:px-6">
+        Земля составляет ~49% запроса — операционная часть комплекса собирается в $2,65 млн при сохранении premium качества покрытий и оснащения
       </div>
     </div>
   );
 }
 
 function GrowthSlide() {
-  const maxRevenue = Math.max(...growthYears.map((year) => year.revenue));
+  const chartWidth = 760;
+  const chartHeight = 440;
+  const margin = { top: 64, right: 34, bottom: 58, left: 72 };
+  const plotWidth = chartWidth - margin.left - margin.right;
+  const plotHeight = chartHeight - margin.top - margin.bottom;
+  const yMax = 25;
+  const yTicks = [0, 5, 10, 15, 20, 25] as const;
+  const phaseRanges = [
+    { label: 'ЗАПУСК', note: 'Год 1 · мес. 1–12', start: 0, end: 12 },
+    { label: 'РАЗГОН', note: 'Год 2 · мес. 13–24', start: 12, end: 24 },
+    { label: 'ЗРЕЛОСТЬ', note: 'Год 3 · мес. 25–36', start: 24, end: 36 },
+  ] as const;
+
+  const xForMonth = (month: number) => margin.left + (month / 36) * plotWidth;
+  const yForValue = (value: number) => margin.top + plotHeight - (value / yMax) * plotHeight;
+
+  type CurvePoint = { month: number; value: number };
+  type CurveSegment = { p0: CurvePoint; c1: CurvePoint; c2: CurvePoint; p1: CurvePoint };
+
+  const curveSegments: CurveSegment[] = [
+    {
+      p0: { month: 0, value: 0 },
+      c1: { month: 4, value: 0.4 },
+      c2: { month: 8, value: 2.8 },
+      p1: { month: 12, value: 4.2 },
+    },
+    {
+      p0: { month: 12, value: 4.2 },
+      c1: { month: 16, value: 5.3 },
+      c2: { month: 20, value: 9.4 },
+      p1: { month: 24, value: 12.2 },
+    },
+    {
+      p0: { month: 24, value: 12.2 },
+      c1: { month: 28, value: 14.4 },
+      c2: { month: 32, value: 19.6 },
+      p1: { month: 36, value: 23.4 },
+    },
+  ];
+
+  const cubicPoint = (segment: CurveSegment, t: number) => {
+    const inv = 1 - t;
+    const month =
+      inv ** 3 * segment.p0.month +
+      3 * inv ** 2 * t * segment.c1.month +
+      3 * inv * t ** 2 * segment.c2.month +
+      t ** 3 * segment.p1.month;
+    const value =
+      inv ** 3 * segment.p0.value +
+      3 * inv ** 2 * t * segment.c1.value +
+      3 * inv * t ** 2 * segment.c2.value +
+      t ** 3 * segment.p1.value;
+    return { month, value };
+  };
+
+  const sampleSegment = (segment: CurveSegment, steps: number, skipFirst = false) => {
+    const result: CurvePoint[] = [];
+    for (let index = skipFirst ? 1 : 0; index <= steps; index += 1) {
+      result.push(cubicPoint(segment, index / steps));
+    }
+    return result;
+  };
+
+  const curvePoints = [
+    ...sampleSegment(curveSegments[0], 18),
+    ...sampleSegment(curveSegments[1], 18, true),
+    ...sampleSegment(curveSegments[2], 18, true),
+  ];
+
+  const returnMonth = 33;
+  const returnPoint = cubicPoint(curveSegments[2], (returnMonth - 24) / 12);
+  const capexLineValue = returnPoint.value;
+  const baseY = yForValue(0);
+
+  const splitCurvePoints = curvePoints.reduce<CurvePoint[]>((accumulator, point) => {
+    if (point.month < returnMonth) {
+      accumulator.push(point);
+      return accumulator;
+    }
+    if (!accumulator.some((item) => Math.abs(item.month - returnMonth) < 0.001)) {
+      accumulator.push(returnPoint);
+    }
+    accumulator.push(point);
+    return accumulator;
+  }, []);
+
+  const beforeReturn = splitCurvePoints.filter((point) => point.month <= returnMonth);
+  const afterReturn = splitCurvePoints.filter((point) => point.month >= returnMonth);
+
+  const toSvgPoint = (point: CurvePoint) => ({
+    x: xForMonth(point.month),
+    y: yForValue(point.value),
+  });
+
+  const curvePath = `M ${xForMonth(curveSegments[0].p0.month)} ${yForValue(curveSegments[0].p0.value)} ` +
+    curveSegments
+      .map(
+        (segment) =>
+          `C ${xForMonth(segment.c1.month)} ${yForValue(segment.c1.value)} ${xForMonth(segment.c2.month)} ${yForValue(segment.c2.value)} ${xForMonth(segment.p1.month)} ${yForValue(segment.p1.value)}`,
+      )
+      .join(' ');
+
+  const areaPath = (points: CurvePoint[]) => {
+    if (!points.length) return '';
+    const svgPoints = points.map(toSvgPoint);
+    return `M ${svgPoints[0].x} ${baseY} L ${svgPoints[0].x} ${svgPoints[0].y} ${svgPoints
+      .map((point) => `L ${point.x} ${point.y}`)
+      .join(' ')} L ${svgPoints[svgPoints.length - 1].x} ${baseY} Z`;
+  };
+
+  const returnCoords = toSvgPoint(returnPoint);
+  const capexLabelWidth = 124;
+  const capexLabelX = chartWidth - margin.right - capexLabelWidth;
+  const capexLabelY = yForValue(capexLineValue) - 28;
+  const returnCalloutWidth = 176;
+  const returnCalloutX = Math.max(
+    margin.left,
+    Math.min(returnCoords.x - returnCalloutWidth + 18, chartWidth - margin.right - returnCalloutWidth),
+  );
+  const returnCalloutY = Math.max(margin.top + 10, returnCoords.y - 52);
+
+  const curveMarkers = [
+    { month: 12, value: 4.2, label: '4,2 млрд', dx: 12, dy: -14, anchor: 'start' as const },
+    { month: 24, value: 12.2, label: '12,2 млрд', dx: 12, dy: -14, anchor: 'start' as const },
+    { month: 36, value: 23.4, label: '23,4 млрд', dx: -18, dy: -20, anchor: 'end' as const },
+  ] as const;
+
   return (
-    <div className="grid gap-5 xl:grid-cols-[0.98fr_1.02fr]">
-      <div className="space-y-4">
-        {growthYears.map((year) => (
-          <div key={year.year} className={`rounded-[26px] border p-5 ${toneStyles[year.tone].ring} ${toneStyles[year.tone].soft}`}>
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div className="text-lg text-[#faf0e2]/84">{year.year}</div>
-                <div className="mt-2 text-sm leading-6 text-[#d7c8b7]/62">{year.description}</div>
+    <div className="space-y-5">
+      <div className="grid gap-5 xl:grid-cols-[1.08fr_0.72fr] xl:items-start">
+        <div className="overflow-x-auto pb-1">
+          <div className="min-w-[760px] overflow-hidden rounded-[32px] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.045),transparent_28%),radial-gradient(circle_at_right,rgba(198,123,55,0.08),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.016))] p-5 shadow-[0_18px_54px_rgba(0,0,0,0.18)] sm:p-6">
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <div className="text-[11px] uppercase tracking-[0.32em] text-[#c7b39b]/50">Нарастающий итог прибыли</div>
+              <div className="rounded-full border border-white/8 bg-white/[0.04] px-3 py-1 text-[10px] uppercase tracking-[0.22em] text-[#d8c7b4]/54">
+                36 месяцев
               </div>
-              <div className={`text-sm ${toneStyles[year.tone].text}`}>{year.revenueLabel}</div>
             </div>
-            <div className="mt-4 h-3 rounded-full bg-white/8">
-              <div className={`h-full rounded-full ${toneStyles[year.tone].bar}`} style={{ width: `${(year.revenue / maxRevenue) * 100}%` }} />
-            </div>
-            <div className="mt-3 flex items-center justify-between text-sm">
-              <span className="text-[#d7c8b7]/62">Операционная прибыль</span>
-              <span className={toneStyles[year.tone].text}>{year.profitLabel}</span>
-            </div>
+            <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} className="h-auto w-full" role="img" aria-label="График накопленной прибыли и точки возврата капитала">
+              <defs>
+                <linearGradient id="payback-fill-before" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(255,255,255,0.12)" />
+                  <stop offset="100%" stopColor="rgba(255,255,255,0.02)" />
+                </linearGradient>
+                <linearGradient id="payback-fill-after" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(214,174,131,0.2)" />
+                  <stop offset="100%" stopColor="rgba(198,123,55,0.03)" />
+                </linearGradient>
+                <linearGradient id="phase-three-glow" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(198,123,55,0.08)" />
+                  <stop offset="100%" stopColor="rgba(198,123,55,0.02)" />
+                </linearGradient>
+              </defs>
+
+              {phaseRanges.map((phase, index) => {
+                const xStart = xForMonth(phase.start);
+                const xEnd = xForMonth(phase.end);
+                return (
+                  <rect
+                    key={`${phase.label}-bg`}
+                    x={xStart}
+                    y={margin.top}
+                    width={xEnd - xStart}
+                    height={plotHeight}
+                    fill={index === 2 ? 'url(#phase-three-glow)' : 'rgba(255,255,255,0.012)'}
+                  />
+                );
+              })}
+
+              {yTicks.map((tick) => (
+                <g key={tick}>
+                  <line
+                    x1={margin.left}
+                    x2={chartWidth - margin.right}
+                    y1={yForValue(tick)}
+                    y2={yForValue(tick)}
+                    stroke="rgba(255,255,255,0.045)"
+                    strokeWidth="1"
+                  />
+                  <text
+                    x={margin.left - 14}
+                    y={yForValue(tick) + 4}
+                    textAnchor="end"
+                    fill="rgba(199,179,155,0.5)"
+                    fontSize="11"
+                    letterSpacing="0.04em"
+                  >
+                    {tick === 0 ? '0' : `${tick} млрд`}
+                  </text>
+                </g>
+              ))}
+
+              {phaseRanges.map((phase, index) => {
+                const xStart = xForMonth(phase.start);
+                const xEnd = xForMonth(phase.end);
+                const xCenter = (xStart + xEnd) / 2;
+                return (
+                  <g key={phase.label}>
+                    {index > 0 ? (
+                      <line
+                        x1={xStart}
+                        x2={xStart}
+                        y1={margin.top}
+                        y2={margin.top + plotHeight}
+                        stroke="rgba(255,255,255,0.06)"
+                        strokeDasharray="4 7"
+                        strokeWidth="1"
+                      />
+                    ) : null}
+                    <text
+                      x={xCenter}
+                      y={28}
+                      textAnchor="middle"
+                      fill="rgba(203,180,155,0.58)"
+                      fontSize="10"
+                      letterSpacing="0.24em"
+                    >
+                      {phase.label}
+                    </text>
+                    <text
+                      x={xCenter}
+                      y={chartHeight - 14}
+                      textAnchor="middle"
+                      fill="rgba(199,183,165,0.5)"
+                      fontSize="12"
+                    >
+                      {phase.note}
+                    </text>
+                  </g>
+                );
+              })}
+
+              <line
+                x1={xForMonth(0)}
+                x2={xForMonth(36)}
+                y1={yForValue(capexLineValue)}
+                y2={yForValue(capexLineValue)}
+                stroke="#d6ae83"
+                strokeDasharray="6 6"
+                strokeWidth="1.5"
+              />
+              <g>
+                <rect
+                  x={capexLabelX}
+                  y={capexLabelY}
+                  width={capexLabelWidth}
+                  height={24}
+                  rx={12}
+                  fill="rgba(11,13,16,0.92)"
+                  stroke="rgba(214,174,131,0.22)"
+                />
+                <text
+                  x={capexLabelX + capexLabelWidth / 2}
+                  y={capexLabelY + 16}
+                  textAnchor="middle"
+                  fill="rgba(240,191,143,0.88)"
+                  fontSize="11"
+                  letterSpacing="0.04em"
+                >
+                  CAPEX $2,65 млн
+                </text>
+              </g>
+
+              <path d={areaPath(beforeReturn)} fill="url(#payback-fill-before)" />
+              <path d={areaPath(afterReturn)} fill="url(#payback-fill-after)" />
+
+              <path
+                d={curvePath}
+                fill="none"
+                stroke="rgba(255,255,255,0.12)"
+                strokeWidth={10}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+
+              <path
+                d={curvePath}
+                fill="none"
+                stroke="rgba(244,239,229,0.94)"
+                strokeWidth={4}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+
+              {curveMarkers.map((marker) => (
+                <g key={marker.month}>
+                  {marker.month === 36 ? (
+                    <rect
+                      x={xForMonth(marker.month) + marker.dx - 80}
+                      y={yForValue(marker.value) + marker.dy - 15}
+                      width={88}
+                      height={24}
+                      rx={12}
+                      fill="rgba(11,13,16,0.92)"
+                      stroke="rgba(255,255,255,0.08)"
+                    />
+                  ) : null}
+                  <line
+                    x1={xForMonth(marker.month)}
+                    x2={xForMonth(marker.month)}
+                    y1={yForValue(0)}
+                    y2={yForValue(marker.value)}
+                    stroke="rgba(255,255,255,0.06)"
+                    strokeDasharray="3 6"
+                    strokeWidth="1"
+                  />
+                  <circle
+                    cx={xForMonth(marker.month)}
+                    cy={yForValue(marker.value)}
+                    r="4.5"
+                    fill="rgba(245,239,229,0.94)"
+                  />
+                  <text
+                    x={xForMonth(marker.month) + marker.dx}
+                    y={yForValue(marker.value) + marker.dy}
+                    textAnchor={marker.anchor}
+                    fill="rgba(244,234,220,0.86)"
+                    fontSize="12"
+                    fontWeight={marker.month === 36 ? '600' : '400'}
+                  >
+                    {marker.label}
+                  </text>
+                </g>
+              ))}
+
+              <g>
+                <circle
+                  cx={returnCoords.x}
+                  cy={returnCoords.y}
+                  r="11"
+                  fill="rgba(214,174,131,0.16)"
+                />
+                <circle
+                  cx={returnCoords.x}
+                  cy={returnCoords.y}
+                  r="6"
+                  fill="#d6ae83"
+                  stroke="#ffffff"
+                  strokeWidth="2"
+                />
+                <line
+                  x1={returnCoords.x}
+                  y1={returnCoords.y - 10}
+                  x2={returnCoords.x}
+                  y2={returnCalloutY + 30}
+                  stroke="rgba(214,174,131,0.42)"
+                  strokeWidth="1"
+                />
+                <rect
+                  x={returnCalloutX}
+                  y={returnCalloutY}
+                  width={returnCalloutWidth}
+                  height={28}
+                  rx={14}
+                  fill="rgba(11,13,16,0.92)"
+                  stroke="rgba(214,174,131,0.24)"
+                />
+                <text
+                  x={returnCalloutX + returnCalloutWidth / 2}
+                  y={returnCalloutY + 18}
+                  textAnchor="middle"
+                  fill="rgba(255,241,221,0.92)"
+                  fontSize="12"
+                >
+                  Точка возврата ~мес. 33
+                </text>
+              </g>
+            </svg>
           </div>
-        ))}
+        </div>
+
+        <div className="space-y-4 xl:pt-4">
+          <MetricCard
+            label="БАЗОВЫЙ СЦЕНАРИЙ"
+            value="30–36 мес"
+            note="При достижении плановой загрузки по академии, лигам и gym"
+            tone="amber"
+          />
+          <MetricCard
+            label="DOWNSIDE 70% ЗАГРУЗКИ"
+            value="~42 мес"
+            note="Модель остаётся положительной даже при недозагрузке"
+            tone="steel"
+          />
+          <MetricCard
+            label="ПРИБЫЛЬ ЗА 3 ГОДА"
+            value="23,4 млрд"
+            note="Совокупная операционная прибыль нарастающим итогом"
+            tone="ivory"
+          />
+        </div>
       </div>
-      <ImageCard
-        src={lobbyImage}
-        alt="Лобби"
-        title="Рост обеспечивается не только спросом, но и эффективным управлением расписанием"
-        note="Год 1 — запуск и формирование базы. Год 2 — увеличение загрузки вечерних часов. Год 3 — высокая плотность турниров, дорогих слотов и дополнительной монетизации."
-        tall
-      />
+
+      <div className="rounded-[22px] border border-white/8 bg-[rgba(255,255,255,0.028)] px-5 py-4 text-center text-[14px] leading-6 text-[#d8c9b7]/64 sm:px-6">
+        Модель сохраняет устойчивость даже при снижении загрузки — доход распределён между академией, лигами, gym и турнирами
+      </div>
     </div>
   );
 }
 
 function ReturnsSlide() {
-  const flowSteps = [
+  const comparisonRows = [
     {
-      title: 'Базовый поток дохода',
-      body: 'Академия и абонементы создают постоянный поток клиентов',
-      panelClass:
-        'border-[#4f6b7f]/60 bg-[linear-gradient(180deg,rgba(97,131,155,0.22),rgba(97,131,155,0.05))] text-[#a9c3d8]',
+      criterion: 'Формат',
+      market: 'Разрозненные секции и аренда часов',
+      apex: 'Единая спортивно-коммерческая платформа внутри одного объекта',
     },
     {
-      title: 'Основная выручка',
-      body: 'Лиги и премиальные слоты формируют основную выручку',
-      panelClass:
-        'border-[#8f5b2b]/60 bg-[linear-gradient(180deg,rgba(198,123,55,0.22),rgba(198,123,55,0.05))] text-[#f0bf8f]',
+      criterion: 'Клиентский цикл',
+      market: 'Клиент сам собирает маршрут между разными площадками',
+      apex: 'Академия → лига → турнир → допродажи внутри одного адреса',
     },
     {
-      title: 'Дополнительная выручка',
-      body: 'Турниры и мероприятия увеличивают доход без роста постоянных затрат',
-      panelClass:
-        'border-[#75508d]/60 bg-[linear-gradient(180deg,rgba(137,88,177,0.22),rgba(137,88,177,0.05))] text-[#d7b2f3]',
+      criterion: 'Вечерняя загрузка',
+      market: 'Случайная, разовые бронирования, слабое управление пиком',
+      apex: 'Управляемая: лиги + премиальные слоты + взрослые группы',
     },
     {
-      title: 'Возврат капитала',
-      value: '30–36 месяцев',
-      body: 'При достижении плановой загрузки',
-      panelClass:
-        'border-[#4e8f67]/75 bg-[linear-gradient(180deg,rgba(85,163,114,0.28),rgba(85,163,114,0.07))] text-[#b9efc6] shadow-[0_0_0_1px_rgba(85,163,114,0.2),0_42px_108px_rgba(85,163,114,0.32)]',
-      final: true,
+      criterion: 'Масштабируемость',
+      market: 'Каждый объект живёт как отдельная площадка без повторяемой модели',
+      apex: 'Повторяемая модель с единой логикой загрузки и монетизации',
     },
   ] as const;
 
   return (
     <div className="space-y-5">
       <div className="overflow-x-auto pb-1">
-        <div className="relative min-w-[1120px] rounded-[32px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.015))] px-6 py-8 sm:px-7">
-          <div className="pointer-events-none absolute left-[72px] right-[72px] top-1/2 hidden h-[2px] -translate-y-1/2 bg-[linear-gradient(90deg,rgba(111,147,173,0.62),rgba(198,123,55,0.62),rgba(137,88,177,0.62),rgba(85,163,114,0.62))] xl:block" />
-          <div className="relative grid items-center gap-4 xl:grid-cols-[minmax(0,1fr)_72px_minmax(0,1fr)_72px_minmax(0,1fr)_72px_minmax(0,1.24fr)]">
-            {flowSteps.map((step, index) => (
-              <Fragment key={step.title}>
-                <div
-                  className={`rounded-[28px] border px-5 py-5 ${step.panelClass} ${step.final ? 'min-h-[290px] px-6 py-7 xl:min-h-[336px]' : 'min-h-[220px]'} flex ${step.final ? 'flex-col items-center justify-center text-center' : 'flex-col justify-between'}`}
-                >
-                  {step.final ? (
-                    <>
-                      <div className="text-[27px] leading-tight sm:text-[32px]">{step.title}</div>
-                      <div className="mt-8 text-[42px] leading-none sm:text-[60px]">{step.value}</div>
-                      <div className="mt-3 text-[12px] uppercase tracking-[0.22em] text-[#e7f7e8]/52">(базовый сценарий)</div>
-                      <div className="mt-6 max-w-[240px] text-[15px] leading-7 text-[#f2e7d9]/82">{step.body}</div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="text-[21px] leading-tight sm:text-[24px]">{step.title}</div>
-                      <div className="mt-6 text-sm leading-7 text-[#f2e7d9]/78">{step.body}</div>
-                    </>
-                  )}
+        <div className="relative min-w-[980px] overflow-hidden rounded-[34px] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.045),transparent_24%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.012))] shadow-[0_22px_64px_rgba(0,0,0,0.22)]">
+          <div className="pointer-events-none absolute bottom-0 right-0 top-0 w-[40%] bg-[linear-gradient(180deg,rgba(214,174,131,0.22),rgba(198,123,55,0.1))]" />
+          <div className="pointer-events-none absolute right-[6%] top-8 text-[96px] leading-none text-black/[0.06]">AA</div>
+
+          <div className="relative grid grid-cols-[0.2fr_0.4fr_0.4fr] border-b border-white/[0.06]">
+            <div className="flex items-center px-5 py-5">
+              <div className="text-[10px] uppercase tracking-[0.3em] text-[#c4ae97]/40">
+                КРИТЕРИЙ
+              </div>
+            </div>
+            <div className="border-l border-white/[0.06] bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.026))] px-5 py-5">
+              <div className="text-[11px] uppercase tracking-[0.3em] text-[#f6eee2]/78">ТИПИЧНЫЙ РЫНОК</div>
+            </div>
+            <div className="border-l border-black/10 bg-[linear-gradient(180deg,rgba(214,174,131,0.96),rgba(198,123,55,0.88))] px-5 py-4 text-[#17120c] shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]">
+              <div className="flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-2xl border border-black/12 bg-black/[0.06] text-[11px] tracking-[0.28em]">
+                  AA
                 </div>
-                {index < flowSteps.length - 1 ? (
-                  <div className="relative z-10 flex h-full items-center justify-center self-stretch">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/14 bg-[#12161b] text-[#f5e8d8]/82 shadow-[0_14px_34px_rgba(0,0,0,0.24)]">
-                      <ArrowRight className="h-6 w-6" strokeWidth={2.4} />
-                    </div>
+                <div className="text-[11px] uppercase tracking-[0.3em]">APEX ARENA</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative divide-y divide-white/[0.05]">
+            {comparisonRows.map((row, index) => {
+              const criterionRowClass = index % 2 === 0 ? 'bg-[rgba(255,255,255,0.012)]' : 'bg-[rgba(255,255,255,0.02)]';
+              const marketRowClass = index % 2 === 0 ? 'bg-[rgba(255,255,255,0.022)]' : 'bg-[rgba(255,255,255,0.038)]';
+              const apexRowClass =
+                index % 2 === 0
+                  ? 'bg-[linear-gradient(180deg,rgba(214,174,131,0.16),rgba(198,123,55,0.06))]'
+                  : 'bg-[linear-gradient(180deg,rgba(214,174,131,0.22),rgba(198,123,55,0.09))]';
+
+              return (
+                <div key={row.criterion} className="grid grid-cols-[0.2fr_0.4fr_0.4fr]">
+                  <div className={`flex items-center px-5 py-5 ${criterionRowClass}`}>
+                    <div className="max-w-[150px] text-[14px] leading-6 text-[#dac8b4]/60">{row.criterion}</div>
                   </div>
-                ) : null}
-              </Fragment>
-            ))}
+
+                  <div className={`border-l border-white/[0.05] px-5 py-5 ${marketRowClass}`}>
+                    <div className="max-w-[320px] text-[15px] leading-7 text-[#f1e7da]/72">{row.market}</div>
+                  </div>
+
+                  <div className={`relative border-l border-black/10 px-5 py-5 ${apexRowClass}`}>
+                    <div className="absolute bottom-0 left-0 top-0 w-[3px] bg-[linear-gradient(180deg,rgba(255,244,231,0.72),rgba(198,123,55,0.46))]" />
+                    <div className="max-w-[336px] pl-1 text-[15px] leading-7 text-[#fff7ea]/92">{row.apex}</div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.02))] px-6 py-4 text-center text-[15px] leading-6 text-[#e7d8c7]/78">
-        Модель сохраняет устойчивость даже при снижении загрузки,
-        <br className="hidden sm:block" />так как доход распределён между несколькими источниками
+      <div className={`relative overflow-hidden rounded-[30px] border p-5 shadow-[0_20px_60px_rgba(198,123,55,0.12)] sm:p-6 ${toneStyles['amber'].ring} ${toneStyles['amber'].soft}`}>
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-[radial-gradient(circle_at_center,rgba(214,174,131,0.18),transparent_70%)]" />
+        <div className="pointer-events-none absolute bottom-0 right-12 text-[92px] leading-none text-[#f1dfc4]/[0.06]">AA</div>
+        <div className="grid gap-5 xl:grid-cols-[minmax(0,0.72fr)_minmax(0,0.28fr)] xl:items-end">
+          <div>
+            <div className="text-[11px] uppercase tracking-[0.32em] text-[#c4ae97]/52">ВЫВОД</div>
+            <div className="mt-4 max-w-[720px] text-[30px] leading-tight text-[#fbf1e2]/90 sm:text-[34px]">
+              Ближайший аналог в регионе отсутствует
+            </div>
+            <div className="mt-4 max-w-[760px] text-[15px] leading-7 text-[#e4d5c5]/72 sm:text-[16px]">
+              Indoor мультиспорт + академия + лиги + турниры в одном объекте в Ташкенте не представлен
+            </div>
+          </div>
+
+          <div className="flex items-end xl:justify-end">
+            <div className="h-px w-full max-w-[180px] bg-[linear-gradient(90deg,rgba(214,174,131,0.9),rgba(255,255,255,0.08))]" />
+          </div>
+        </div>
+      </div>
+
+      <div className="rounded-[22px] border border-white/8 bg-[rgba(255,255,255,0.028)] px-5 py-4 text-center text-[14px] leading-6 text-[#d8c9b7]/64 sm:px-6">
+        Обычный рынок продаёт отдельные услуги — APEX ARENA продаёт спортивную карьеру внутри одного адреса
       </div>
     </div>
   );
 }
 
+function ObjectTourSlide() {
+  const coreArena = objectTourAssets.filter((asset) => asset.group === 'CORE ARENA');
+  const trainingAssets = objectTourAssets.filter((asset) => asset.group === 'TRAINING & PERFORMANCE');
+  const experienceAssets = objectTourAssets.filter((asset) => asset.group === 'EXPERIENCE & PREMIUM');
+  const vipAsset = experienceAssets.find((asset) => asset.featured) ?? experienceAssets[0] ?? objectTourAssets[0];
+  const secondaryExperienceAssets = experienceAssets.filter((asset) => asset.id !== vipAsset.id);
+  const [activeAssetId, setActiveAssetId] = useState<string | null>(null);
+  const activeAsset = activeAssetId
+    ? objectTourAssets.find((asset) => asset.id === activeAssetId) ?? null
+    : null;
+
+  useEffect(() => {
+    if (!activeAsset) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setActiveAssetId(null);
+        return;
+      }
+
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        setActiveAssetId((current) => {
+          if (!current) return current;
+          const currentIndex = objectTourAssets.findIndex((asset) => asset.id === current);
+          if (currentIndex === -1) return current;
+          const offset = event.key === 'ArrowLeft' ? -1 : 1;
+          const nextIndex = (currentIndex + offset + objectTourAssets.length) % objectTourAssets.length;
+          return objectTourAssets[nextIndex].id;
+        });
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [activeAsset]);
+
+  const openAsset = (assetId: string) => setActiveAssetId(assetId);
+  const closeAsset = () => setActiveAssetId(null);
+  const shiftActiveAsset = (direction: -1 | 1) => {
+    setActiveAssetId((current) => {
+      if (!current) return current;
+      const currentIndex = objectTourAssets.findIndex((asset) => asset.id === current);
+      if (currentIndex === -1) return current;
+      const nextIndex = (currentIndex + direction + objectTourAssets.length) % objectTourAssets.length;
+      return objectTourAssets[nextIndex].id;
+    });
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="overflow-hidden rounded-[32px] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(214,174,131,0.12),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(97,131,155,0.1),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.012))] p-3 shadow-[0_20px_60px_rgba(0,0,0,0.2)] sm:p-4">
+        <div className="space-y-4">
+          <section className="rounded-[28px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.028),rgba(255,255,255,0.012))] p-3 sm:p-4">
+            <div className="mb-3 flex items-center justify-between gap-3 px-1">
+              <div className="text-[10px] uppercase tracking-[0.32em] text-[#c7b39b]/52">CORE ARENA</div>
+              <div className="hidden text-[11px] text-[#cdbba8]/36 sm:block">Architecture / customer experience</div>
+            </div>
+            <div className="grid gap-3 xl:grid-cols-[1.2fr_0.8fr]">
+              {coreArena.map((asset, index) => (
+                <TourImagePanel
+                  key={asset.id}
+                  asset={asset}
+                  onOpen={openAsset}
+                  className={index === 0 ? 'min-h-[280px] sm:min-h-[340px] xl:min-h-[430px]' : 'min-h-[280px] sm:min-h-[340px] xl:min-h-[430px]'}
+                />
+              ))}
+            </div>
+          </section>
+
+          <div className="grid gap-4 xl:grid-cols-[1.02fr_0.98fr]">
+            <section className="rounded-[28px] border border-white/8 bg-[radial-gradient(circle_at_top_left,rgba(97,131,155,0.08),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.024),rgba(255,255,255,0.012))] p-3 sm:p-4">
+              <div className="mb-3 px-1 text-[10px] uppercase tracking-[0.32em] text-[#c7b39b]/52">
+                TRAINING & PERFORMANCE
+              </div>
+              <div className="grid gap-3 sm:grid-cols-3">
+                {trainingAssets.map((asset) => (
+                  <TourImagePanel
+                    key={asset.id}
+                    asset={asset}
+                    onOpen={openAsset}
+                    className="min-h-[180px] sm:min-h-[230px] xl:min-h-[250px]"
+                  />
+                ))}
+              </div>
+            </section>
+
+            <section className="rounded-[28px] border border-[#8f5b2b]/20 bg-[radial-gradient(circle_at_top_right,rgba(214,174,131,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.026),rgba(255,255,255,0.012))] p-3 sm:p-4">
+              <div className="mb-3 px-1 text-[10px] uppercase tracking-[0.32em] text-[#c7b39b]/52">
+                EXPERIENCE & PREMIUM
+              </div>
+              <div className="grid gap-3 sm:grid-cols-[0.84fr_1.16fr]">
+                <div className="grid gap-3">
+                  {secondaryExperienceAssets.map((asset) => (
+                    <TourImagePanel
+                      key={asset.id}
+                      asset={asset}
+                      onOpen={openAsset}
+                      className="min-h-[180px] sm:min-h-[196px] xl:min-h-[214px]"
+                    />
+                  ))}
+                </div>
+                <TourImagePanel
+                  asset={vipAsset}
+                  onOpen={openAsset}
+                  className="min-h-[240px] sm:min-h-[405px] xl:min-h-[440px]"
+                />
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-wrap items-center justify-end gap-3">
+        <SlideActionLink href={objectPlanOneImage}>1 этаж</SlideActionLink>
+        <SlideActionLink href={objectPlanTwoImage}>2 этаж</SlideActionLink>
+      </div>
+
+      {activeAsset ? (
+        <div
+          className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(5,7,10,0.92)] px-4 py-6 backdrop-blur-md sm:px-6"
+          onClick={closeAsset}
+        >
+          <button
+            type="button"
+            onClick={closeAsset}
+            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-[#f6ecde]/82 shadow-[0_16px_38px_rgba(0,0,0,0.22)] transition hover:border-white/16 hover:bg-white/[0.1] sm:right-6 sm:top-6"
+            aria-label="Закрыть изображение"
+          >
+            <X className="h-4 w-4" />
+          </button>
+
+          <div
+            className="relative flex w-full max-w-[1180px] items-center justify-center gap-3 sm:gap-5"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => shiftActiveAsset(-1)}
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-[#f6ecde]/82 shadow-[0_16px_38px_rgba(0,0,0,0.2)] transition hover:border-white/16 hover:bg-white/[0.1]"
+              aria-label="Предыдущее изображение"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </button>
+
+            <div className="w-full overflow-hidden rounded-[30px] border border-white/10 bg-[linear-gradient(180deg,rgba(11,13,16,0.9),rgba(11,13,16,0.82))] shadow-[0_30px_90px_rgba(0,0,0,0.36)]">
+              <div className="relative flex min-h-[320px] items-center justify-center bg-[radial-gradient(circle_at_top,rgba(214,174,131,0.1),transparent_32%),linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01))] px-4 py-4 sm:min-h-[520px] sm:px-6 sm:py-6">
+                <img
+                  src={activeAsset.src}
+                  alt={activeAsset.alt}
+                  className="max-h-[72vh] w-auto max-w-full object-contain"
+                  draggable={false}
+                />
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-[linear-gradient(180deg,rgba(5,7,9,0),rgba(5,7,9,0.82)_68%,rgba(5,7,9,0.96))]" />
+                <div className="absolute inset-x-0 bottom-0 px-5 py-5 sm:px-6 sm:py-6">
+                  <div className="text-[10px] uppercase tracking-[0.32em] text-[#c7b39b]/52">{activeAsset.group}</div>
+                  <div className="mt-3 text-[26px] leading-none text-[#fbf2e6]/92 sm:text-[34px]">
+                    {activeAsset.title}
+                  </div>
+                  <div className="mt-2 text-[14px] leading-6 text-[#d9cab8]/72 sm:text-[15px]">
+                    {activeAsset.note}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => shiftActiveAsset(1)}
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-[#f6ecde]/82 shadow-[0_16px_38px_rgba(0,0,0,0.2)] transition hover:border-white/16 hover:bg-white/[0.1]"
+              aria-label="Следующее изображение"
+            >
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      ) : null}
+
+    </div>
+  );
+}
+
 function WhyWorksSlide() {
-  const strategicFrameStyles = [
-    'border-[#4f6b7f]/60 bg-[linear-gradient(180deg,rgba(97,131,155,0.22),rgba(97,131,155,0.05))] text-[#a9c3d8]',
-    'border-[#8f5b2b]/60 bg-[linear-gradient(180deg,rgba(198,123,55,0.22),rgba(198,123,55,0.05))] text-[#f0bf8f]',
-    'border-[#75508d]/60 bg-[linear-gradient(180deg,rgba(137,88,177,0.22),rgba(137,88,177,0.05))] text-[#d7b2f3]',
-    'border-[#4e8f67]/60 bg-[linear-gradient(180deg,rgba(85,163,114,0.22),rgba(85,163,114,0.05))] text-[#b9efc6]',
+  const networkStages = [
+    {
+      step: '01',
+      label: 'ЭТАП 01',
+      title: 'Запуск флагмана',
+      body: 'Первый объект подтверждает планировку, архитектуру выручки и стандарты сервиса в Ташкенте',
+      circleClass:
+        'border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] text-[#f5ecdf]/78',
+      panelClass:
+        'border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.018))]',
+    },
+    {
+      step: '02',
+      label: 'ЭТАП 02',
+      title: 'Фиксация модели',
+      body: 'Операционный календарь, правила ценообразования и стандарт сервиса оформляются в повторяемую систему',
+      circleClass:
+        'border-[#7c6658]/40 bg-[linear-gradient(180deg,rgba(124,102,88,0.28),rgba(124,102,88,0.09))] text-[#ead9c7]',
+      panelClass:
+        'border-[#7c6658]/24 bg-[linear-gradient(180deg,rgba(124,102,88,0.12),rgba(124,102,88,0.04))]',
+    },
+    {
+      step: '03',
+      label: 'ЭТАП 03',
+      title: 'Тиражирование формата',
+      body: 'Следующие объекты повторяют уже проверенную логику дохода, загрузки и клиентского пути',
+      circleClass:
+        'border-[#8f5b2b]/44 bg-[linear-gradient(180deg,rgba(198,123,55,0.36),rgba(198,123,55,0.12))] text-[#f5dec0]',
+      panelClass:
+        'border-[#8f5b2b]/26 bg-[linear-gradient(180deg,rgba(198,123,55,0.16),rgba(198,123,55,0.05))]',
+    },
+    {
+      step: '04',
+      label: 'ЭТАП 04',
+      title: 'Ценность сети',
+      body: 'Несколько объектов усиливают бренд, партнёрства, переговорную позицию и общую стоимость сети',
+      circleClass:
+        'border-[#d6ae83]/60 bg-[linear-gradient(180deg,rgba(214,174,131,0.72),rgba(198,123,55,0.24))] text-[#17120c]',
+      panelClass:
+        'border-[#d6ae83]/30 bg-[linear-gradient(180deg,rgba(214,174,131,0.22),rgba(198,123,55,0.08))]',
+    },
   ] as const;
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-4 md:grid-cols-2">
-        {whyBlocks.map((block, index) => (
-          <div key={block.index} className={`rounded-[28px] border p-5 sm:p-6 ${strategicFrameStyles[index]}`}>
-            <div className="text-[22px] leading-tight sm:text-[24px]">{block.title}</div>
-            <div className="mt-4 text-sm leading-7 text-[#efe3d4]/76">{block.text}</div>
+      <div className="grid gap-5 xl:grid-cols-[1.08fr_0.72fr] xl:items-start">
+        <div className="overflow-hidden rounded-[32px] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.04),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.014))] p-5 shadow-[0_18px_54px_rgba(0,0,0,0.18)] sm:p-6">
+          <div className="relative">
+            <div className="pointer-events-none absolute left-[23px] top-6 bottom-6 w-px bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(124,102,88,0.18),rgba(198,123,55,0.32),rgba(214,174,131,0.9))]" />
+
+            <div className="space-y-4">
+              {networkStages.map((stage, index) => (
+                <div key={stage.step} className="grid grid-cols-[48px_minmax(0,1fr)] gap-4">
+                  <div className="relative flex justify-center">
+                    <div
+                      className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-full border text-[13px] tracking-[0.24em] shadow-[0_12px_34px_rgba(0,0,0,0.18)] ${stage.circleClass}`}
+                    >
+                      {stage.step}
+                    </div>
+                  </div>
+
+                  <div className={`rounded-[26px] border px-5 py-5 sm:px-6 ${stage.panelClass}`}>
+                    <div className="text-[10px] uppercase tracking-[0.28em] text-[#c7b39b]/48">{stage.label}</div>
+                    <div className="mt-3 text-[24px] leading-tight text-[#fbf2e6]/88 sm:text-[28px]">
+                      {stage.title}
+                    </div>
+                    <div className="mt-4 max-w-[560px] text-[15px] leading-7 text-[#e2d4c4]/72">
+                      {stage.body}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        ))}
+        </div>
+
+        <div className="space-y-4">
+          <MetricCard
+            label="ОБЪЕКТ 1"
+            value="Ташкент · 2026"
+            note="Флагман · $5,15 млн CAPEX · возврат 30–36 мес"
+            tone="amber"
+          />
+
+          <MetricCard
+            label="СЕТЬ 3+ ОБЪЕКТОВ"
+            value="Самарканд · Фергана"
+            note="Каждый следующий объект дешевле и быстрее за счёт готовой модели"
+            tone="ivory"
+          />
+        </div>
       </div>
 
-      <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.02))] px-6 py-5 text-center text-[15px] leading-7 text-[#e7d8c7]/78">
-        Модель не зависит от одного источника дохода
-        <br className="hidden sm:block" />и сохраняет устойчивость при снижении загрузки отдельных сегментов
+      <div className="rounded-[22px] border border-white/8 bg-[rgba(255,255,255,0.028)] px-5 py-4 text-center text-[14px] leading-6 text-[#d8c9b7]/64 sm:px-6">
+        Инвестор входит в первый объект и получает долю в модели которая масштабируется
       </div>
     </div>
   );
 }
 
 function CompetitionSlide() {
-  const emphasizedCriteria = new Set(['Основа выручки', 'Выходные и события', 'Дополнительный доход']);
+  const riskShieldRows = [
+    {
+      riskId: '01',
+      riskTitle: 'Спрос ниже прогноза',
+      riskBody: 'Реальная загрузка не достигает планового уровня в первые месяцы',
+      mitigate:
+        'Академия и абонементы формируют базовый поток независимо от турниров — модель положительна даже при 70% загрузке',
+    },
+    {
+      riskId: '02',
+      riskTitle: 'Операционный сбой',
+      riskBody: 'Одна из зон не выходит на плановую загрузку',
+      mitigate:
+        'Каждая зона имеет свой breakeven и не зависит от других — расписание управляется как финансовый инструмент',
+    },
+    {
+      riskId: '03',
+      riskTitle: 'Появление конкурента',
+      riskBody: 'Аналогичный формат открывается в Ташкенте в период запуска',
+      mitigate:
+        'Барьер входа высокий — $5,15 млн CAPEX и операционная сложность. Аналог в регионе сейчас отсутствует',
+    },
+    {
+      riskId: '04',
+      riskTitle: 'Удорожание строительства',
+      riskBody: 'Рост цен на материалы или задержка сроков',
+      mitigate:
+        'Contingency 10% заложен в CAPEX — резерв $0,24 млн покрывает удорожание материалов и корректировку сроков',
+    },
+  ] as const;
 
   return (
-    <div className="overflow-x-auto rounded-[30px] border border-white/10 bg-white/[0.035]">
-      <div className="min-w-[980px]">
-        <div className="grid grid-cols-[220px_1fr_1.08fr] border-b border-white/10 bg-white/[0.045] px-6 py-4 text-[11px] uppercase tracking-[0.32em] text-[#c4ae97]/52">
-          <div>Критерий</div>
-          <div>Типичный рынок</div>
-          <div className="rounded-[14px] bg-[rgba(214,174,131,0.08)] px-4 py-2 text-[#f2dfc4]/78">APEX ARENA</div>
-        </div>
-        {competitionRows.map((row) => (
-          <div
-            key={row.criterion}
-            className={`grid grid-cols-[220px_1fr_1.08fr] items-stretch border-b px-6 py-5 last:border-b-0 ${
-              emphasizedCriteria.has(row.criterion)
-                ? 'border-white/10 bg-[linear-gradient(90deg,rgba(255,255,255,0.03),rgba(214,174,131,0.05))]'
-                : 'border-white/6'
-            }`}
-          >
-            <div className="pr-6 text-[15px] leading-6 text-[#fff2e1]/84">{row.criterion}</div>
-            <div className="pr-6 text-[15px] leading-7 text-[#cfbaa2]/64">{row.market}</div>
-            <div
-              className={`rounded-[18px] border px-5 py-4 text-[15px] leading-7 ${
-                emphasizedCriteria.has(row.criterion)
-                  ? 'border-[#8f5b2b]/30 bg-[linear-gradient(180deg,rgba(198,123,55,0.11),rgba(198,123,55,0.03))] text-[#f4e3ca]/88'
-                  : 'border-white/8 bg-white/[0.03] text-[#f1dfc4]/82'
-              }`}
-            >
-              {row.apex}
-            </div>
+    <div className="space-y-5">
+      <div className="overflow-hidden rounded-[32px] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.04),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.012))] shadow-[0_18px_54px_rgba(0,0,0,0.18)]">
+        <div className="grid grid-cols-1 border-b border-white/[0.06] md:grid-cols-2">
+          <div className="px-5 py-4 text-[10px] uppercase tracking-[0.3em] text-[#c4ae97]/42 sm:px-6">
+            РИСК
           </div>
-        ))}
+          <div className="border-t border-white/[0.06] px-5 py-4 text-[10px] uppercase tracking-[0.3em] text-[#c4ae97]/42 sm:px-6 md:border-t-0 md:border-l">
+            КАК ЗАКРЫТ
+          </div>
+        </div>
+
+        <div className="divide-y divide-white/[0.05]">
+          {riskShieldRows.map((row, index) => {
+            const riskClass =
+              index % 2 === 0
+                ? 'bg-[linear-gradient(180deg,rgba(198,123,55,0.08),rgba(255,255,255,0.012))]'
+                : 'bg-[linear-gradient(180deg,rgba(198,123,55,0.12),rgba(255,255,255,0.018))]';
+            const mitigateClass =
+              index % 2 === 0
+                ? 'bg-[linear-gradient(180deg,rgba(97,131,155,0.08),rgba(255,255,255,0.016))]'
+                : 'bg-[linear-gradient(180deg,rgba(97,131,155,0.11),rgba(255,255,255,0.02))]';
+
+            return (
+              <div key={row.riskId} className="grid grid-cols-1 md:grid-cols-2">
+                <div className={`px-5 py-5 sm:px-6 ${riskClass}`}>
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-[#8f5b2b]/30 bg-[rgba(198,123,55,0.08)] text-[#f0bf8f]">
+                      <TriangleAlert className="h-4 w-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[10px] uppercase tracking-[0.28em] text-[#c7b39b]/48">
+                        {`РИСК ${row.riskId}`}
+                      </div>
+                      <div className="mt-3 text-[24px] leading-tight text-[#fbf2e6]/88 sm:text-[28px]">
+                        {row.riskTitle}
+                      </div>
+                      <div className="mt-4 max-w-[420px] text-[15px] leading-7 text-[#e2d4c4]/68">
+                        {row.riskBody}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={`border-t border-white/[0.05] px-5 py-5 sm:px-6 ${mitigateClass} md:border-l md:border-t-0`}>
+                  <div className="flex items-start gap-4">
+                    <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-[#4e8f67]/28 bg-[rgba(85,163,114,0.1)] text-[#b9efc6]">
+                      <Check className="h-4 w-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[10px] uppercase tracking-[0.28em] text-[#c7b39b]/48">
+                        МИТИГАТОР
+                      </div>
+                      <div className="mt-4 max-w-[460px] text-[15px] leading-7 text-[#edf0f3]/72">
+                        {row.mitigate}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="rounded-[22px] border border-white/8 bg-[rgba(255,255,255,0.028)] px-5 py-4 text-center text-[14px] leading-6 text-[#d8c9b7]/64 sm:px-6">
+        Модель устойчива при снижении загрузки — доход распределён между пятью независимыми сегментами
       </div>
     </div>
   );
 }
 
 function InvestmentSlide() {
-  return (
-    <div className="grid gap-5 xl:grid-cols-[0.98fr_1.02fr]">
-      <div className="space-y-4">
-        {allocationRows.map((row) => (
-          <AllocationCard key={row.item} row={row} />
-        ))}
-      </div>
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
-        <TextBlock
-          title="Логика распределения"
-          body="Средства распределяются не по принципу «ремонт + оборудование», а по логике запуска полноценной доходной модели."
-        />
+  const nowReasons = [
+    {
+      title: 'Спрос подтверждён',
+      note: 'Платящая аудитория 10 000–14 000 человек в зоне доступа комплекса',
+    },
+    {
+      title: 'Экономика просчитана',
+      note: 'Возврат капитала 30–36 месяцев обеспечен базовым потоком без турниров',
+    },
+    {
+      title: 'CAPEX структурирован',
+      note: '$5,15 млн с contingency 10% и резервом оборотного капитала',
+    },
+    {
+      title: 'Аналог в регионе отсутствует',
+      note: 'Окно возможности открыто — барьер входа высокий',
+    },
+  ] as const;
 
-        <div className="overflow-hidden rounded-[30px] border border-white/10 bg-white/[0.03]">
-          <div className="px-5 pt-5 text-[11px] uppercase tracking-[0.3em] text-[#c7b39b]/52">
-            Планировка подчинена не только площади, но и логике монетизации зон
-          </div>
-          <div className="mt-4 px-5">
-            <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[#0b0d10] px-3 py-3">
-              <img src={floorPlanTwoImage} alt="Планировка второго этажа" className="h-[260px] w-full object-contain" />
-            </div>
-          </div>
-          <div className="p-5">
-            <div className="text-lg text-[#fbf1e2]/84">Капитал работает на архитектуру выручки</div>
-            <div className="mt-3 text-sm leading-6 text-[#ddcebc]/68">
-              Инвестиции направлены в среду, которая поддерживает академию, вечерние лиги, турнирный календарь, тренажёрный зал, дополнительные продажи и клиентский поток внутри одного объекта.
-            </div>
+  const sampleContacts = [
+    { icon: '👤', value: 'Азам Каримов' },
+    { icon: '✈', value: '@apexarena_uz' },
+    { icon: '📞', value: '+998 90 123 45 67' },
+    { icon: '✉', value: 'hello@apexarena.uz' },
+  ] as const;
+
+  return (
+    <div className="space-y-5">
+      <div className="grid gap-5 xl:grid-cols-[1.02fr_0.82fr] xl:items-stretch">
+        <div className="rounded-[32px] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(214,174,131,0.08),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.012))] p-5 shadow-[0_18px_54px_rgba(0,0,0,0.18)] sm:p-6">
+          <div className="text-[11px] uppercase tracking-[0.32em] text-[#c4ae97]/44">ПОЧЕМУ СЕЙЧАС</div>
+          <div className="mt-6 space-y-5">
+            {nowReasons.map((item) => (
+              <div key={item.title} className="flex items-start gap-4">
+                <div className="mt-1 h-16 w-[3px] shrink-0 rounded-full bg-[linear-gradient(180deg,#d6ae83,#c67b37)]" />
+                <div className="min-w-0">
+                  <div className="text-[26px] leading-tight text-[#fbf1e2]/88 sm:text-[30px]">
+                    {item.title}
+                  </div>
+                  <div className="mt-2 max-w-[520px] text-[15px] leading-7 text-[#dacbbb]/66">
+                    {item.note}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
+
+        <div className="rounded-[32px] border border-[#8f5b2b]/38 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.018))] p-5 shadow-[0_20px_62px_rgba(198,123,55,0.1)] sm:p-6 xl:flex xl:min-h-full xl:flex-col">
+          <div className="text-[11px] uppercase tracking-[0.32em] text-[#c4ae97]/46">СЛЕДУЮЩИЙ ШАГ</div>
+          <div className="mt-4 text-[34px] leading-[1.02] text-[#fbf1e2]/90 sm:text-[40px] xl:text-[44px]">
+            Обсудим структуру сделки
+          </div>
+          <div className="mt-4 max-w-[360px] text-[15px] leading-7 text-[#dacbbb]/66">
+            Готовы к встрече, звонку или отправке финансовой модели
+          </div>
+
+          <div className="mt-6 h-px w-full bg-[linear-gradient(90deg,rgba(214,174,131,0.4),rgba(255,255,255,0.06))]" />
+
+          <div className="mt-6 space-y-3">
+            {sampleContacts.map((item) => (
+              <div key={item.value} className="flex items-center gap-3 text-[15px] leading-7 text-[#f0e4d4]/78">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-white/8 bg-white/[0.04] text-[15px]">
+                  {item.icon}
+                </span>
+                <span>{item.value}</span>
+              </div>
+            ))}
+          </div>
+
+          <a
+            href="mailto:hello@apexarena.uz"
+            className="mt-8 inline-flex w-full items-center justify-center gap-3 rounded-[20px] border border-[#d6ae83]/48 bg-[#d6ae83] px-4 py-3 text-sm text-[#17120c] shadow-[0_16px_38px_rgba(198,123,55,0.18)] transition duration-300 hover:-translate-y-[1px] hover:bg-[#deba92] hover:shadow-[0_22px_54px_rgba(198,123,55,0.24)] xl:mt-auto"
+          >
+            <span>Обсудить структуру сделки →</span>
+          </a>
+
+          <div className="mt-5 text-[12px] leading-5 text-[#bfae9b]/48">
+            Ташкент · 2026
+          </div>
+        </div>
+      </div>
+
+      <div className="rounded-[22px] border border-white/8 bg-[rgba(255,255,255,0.028)] px-5 py-4 text-center text-[14px] leading-6 text-[#d8c9b7]/64 sm:px-6">
+        Проект готов к обсуждению структуры сделки
       </div>
     </div>
   );
@@ -1808,6 +2969,61 @@ function MetricCard({ label, value, note, tone }: { label: string; value: string
   );
 }
 
+function TourImagePanel({
+  asset,
+  onOpen,
+  className = '',
+}: {
+  asset: ObjectTourAsset;
+  onOpen: (assetId: string) => void;
+  className?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={() => onOpen(asset.id)}
+      className={`group relative h-full min-h-0 w-full overflow-hidden rounded-[24px] border text-left transition duration-300 hover:-translate-y-[1px] ${asset.featured ? 'border-[#d6ae83]/32 bg-[linear-gradient(180deg,rgba(214,174,131,0.08),rgba(255,255,255,0.02))] shadow-[0_24px_60px_rgba(198,123,55,0.14)] hover:border-[#d6ae83]/48 hover:shadow-[0_28px_70px_rgba(198,123,55,0.2)]' : 'border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01))] hover:border-white/14 hover:shadow-[0_20px_54px_rgba(0,0,0,0.22)]'} ${className}`}
+      aria-label={`${asset.title} — ${asset.note}`}
+    >
+      <img
+        src={asset.src}
+        alt={asset.alt}
+        className="h-full w-full cursor-pointer object-cover object-center transition duration-500 group-hover:scale-[1.045]"
+        draggable={false}
+      />
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(5,7,9,0.14),rgba(5,7,9,0.24)_38%,rgba(5,7,9,0.82)_100%)] transition duration-300 group-hover:bg-[linear-gradient(180deg,rgba(5,7,9,0.2),rgba(5,7,9,0.34)_38%,rgba(5,7,9,0.88)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.06),transparent_34%)] opacity-70 transition duration-300 group-hover:opacity-100" />
+      {asset.featured ? (
+        <div className="absolute left-4 top-4 rounded-full border border-[#d6ae83]/34 bg-[rgba(10,12,15,0.52)] px-3 py-1 text-[10px] uppercase tracking-[0.28em] text-[#f3d7b6]/84 backdrop-blur-md">
+          Premium
+        </div>
+      ) : null}
+      <div className="absolute inset-x-0 bottom-0 px-4 py-4 sm:px-5 sm:py-5">
+        <div className={`${asset.featured ? 'text-[19px] sm:text-[22px]' : 'text-[17px] sm:text-[19px]'} leading-tight text-[#fbf2e6]/92`}>
+          {asset.title}
+        </div>
+        <div className="mt-1 text-[12px] leading-5 text-[#dccdbb]/76 sm:text-[13px]">
+          {asset.note}
+        </div>
+      </div>
+      <div className={`absolute inset-0 ring-1 ring-inset ${asset.featured ? 'ring-[#d6ae83]/18 group-hover:ring-[#d6ae83]/28' : 'ring-white/[0.05] group-hover:ring-white/[0.1]'} transition duration-300`} />
+    </button>
+  );
+}
+
+function SlideActionLink({ href, children }: { href: string; children: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center justify-between gap-3 rounded-[20px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] px-4 py-3 text-left text-sm text-[#f5e9d9]/84 shadow-[0_16px_38px_rgba(0,0,0,0.18)] backdrop-blur-xl transition duration-300 hover:-translate-y-[1px] hover:border-white/16 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.04))] hover:shadow-[0_22px_54px_rgba(0,0,0,0.24)]"
+    >
+      <span>{children}</span>
+    </a>
+  );
+}
+
 function MetricPill({ label, value, note, tone, compact = false }: { label: string; value: string; note?: string; tone: Tone; compact?: boolean }) {
   return (
     <div className={`rounded-[22px] border ${compact ? 'px-3 py-3' : 'p-4'} ${toneStyles[tone].ring} bg-white/[0.04]`}>
@@ -1946,7 +3162,7 @@ function BackgroundImage({ src, emphasize = false }: { src: string; emphasize?: 
 }
 
 function getSpotlightStats(index: number) {
-  const chapterValue = index === 7 ? 'АРХИТЕКТУРА ВЫРУЧКИ' : slideMeta[index].eyebrow;
+  const chapterValue = slideMeta[index].eyebrow;
 
   switch (index) {
     case 0:
@@ -1956,7 +3172,7 @@ function getSpotlightStats(index: number) {
         { label: 'Формат', value: 'Мультиспорт', note: 'баскетбол + футзал + теннис + зал', tone: 'steel' as Tone },
         { label: 'Локация', value: 'Ташкент', note: 'флагманский город', tone: 'ivory' as Tone },
       ];
-    case 15:
+    case 16:
       return [
         { label: 'Статус', value: 'Готов к запуску', tone: 'amber' as Tone },
         { label: 'Возврат', value: '30–36 мес.', tone: 'copper' as Tone },

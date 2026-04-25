@@ -41,11 +41,11 @@ export const uzbekistanFlagImage = new URL(
 ).href;
 
 export const floorPlanOneImage = new URL(
-  '../../../project-assets/plans/1floor plan.png',
+  '../../../project-assets/plans/plan 1 .png',
   import.meta.url,
 ).href;
 export const floorPlanTwoImage = new URL(
-  '../../../project-assets/plans/2 floor plan.png',
+  '../../../project-assets/plans/plan 2.png',
   import.meta.url,
 ).href;
 
