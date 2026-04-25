@@ -59,7 +59,7 @@ export const slideMeta: SlideMeta[] = [
     eyebrow: 'СПРОС И АУДИТОРИЯ',
     title: 'Платящая аудитория уже сформирована',
     subtitle:
-      'Basketball, futsal, tennis, gym и combat дают не один рынок, а набор сегментов с разной частотой, чеком и ролью в revenue mix.',
+      'Basketball, futsal, tennis, gym и combat формируют не один рынок, а портфель сегментов с разной частотой, чеком и ролью в структуре выручки.',
     backdrop: 'blueprint',
     ctaLabel: 'Глубже по рынку',
     deepDiveId: 'demand-segmentation',
@@ -374,20 +374,20 @@ export const problemCards: ProblemCard[] = [
 export const captureBands: CaptureBand[] = [
   {
     label: 'TAM',
-    range: '12 000–15 000',
-    note: 'Точка притяжения городского актива: от драйва командных игр до эксклюзивности private-форматов.',
+    range: '25 000–35 000',
+    note: 'Платёжеспособная reachable-аудитория indoor sports в Ташкенте: basketball, futsal, tennis, gym и combat с учётом пересечений между сегментами.',
     tone: 'ivory',
   },
   {
     label: 'SAM',
-    range: '6 000–8 000',
-    note: 'Платежеспособная база, которой важны качество условий и удобный доступ.',
+    range: '10 000–14 000',
+    note: 'Аудитория в зоне доступа комплекса, готовая платить за качественный indoor-формат: академии, лиги, турниры, private training, gym и club service.',
     tone: 'amber',
   },
   {
     label: 'SOM',
     range: '1 800–2 500',
-    note: 'Реальные показатели заполняемости первого клуба в рабочем режиме.',
+    note: 'Реалистичная месячная активная база первого объекта после выхода на рабочую загрузку: recurring clients + leagues + tournaments + visitors + premium bookings.',
     tone: 'steel',
   },
 ];

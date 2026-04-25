@@ -94,8 +94,16 @@ export const marketCombatPdf = new URL(
   '../../../project-assets/market/market analysis combatzone.docx',
   import.meta.url,
 ).href;
+export const marketCombatzonePdf = new URL(
+  '../../../project-assets/market/market analysis combatzone.pdf',
+  import.meta.url,
+).href;
 export const marketFutsalDoc = new URL(
   '../../../project-assets/market/market analysis futsal.docx',
+  import.meta.url,
+).href;
+export const marketFutsalPdf = new URL(
+  '../../../project-assets/market/market analysis futsal.pdf',
   import.meta.url,
 ).href;
 export const marketGymPdf = new URL(
@@ -104,6 +112,10 @@ export const marketGymPdf = new URL(
 ).href;
 export const marketTennisPdf = new URL(
   '../../../project-assets/market/market analysis tennis.pdf',
+  import.meta.url,
+).href;
+export const marketAudienceIndoorSportsPdf = new URL(
+  '../../../project-assets/market/Платёжная аудитория indoor sports в Ташкенте.pdf',
   import.meta.url,
 ).href;
 

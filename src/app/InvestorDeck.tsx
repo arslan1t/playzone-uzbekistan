@@ -1,11 +1,13 @@
-import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
   CalendarDays,
   ChartColumnBig,
+  ChevronDown,
   CircleDollarSign,
   Compass,
+  FileText,
   MoonStar,
   Sun,
   X,
@@ -23,6 +25,12 @@ import {
   floorPlanTwoImage,
   gymImage,
   lobbyImage,
+  marketAudienceIndoorSportsPdf,
+  marketBasketballPdf,
+  marketCombatzonePdf,
+  marketFutsalPdf,
+  marketGymPdf,
+  marketTennisPdf,
   revenueStructureFirstImage,
   revenueStructureSecondImage,
   statImage,
@@ -113,6 +121,27 @@ const demandMixData = [
   { name: 'Tennis', value: 2300, color: '#e5e7eb' },
   { name: 'Combat (TKD, MMA, BOX)', value: 1800, color: '#fb923c' },
   { name: 'Gym', value: 2500, color: '#22c55e' },
+] as const;
+
+const demandLegendItems = [
+  { label: 'Basketball + Futsal', note: 'volume / leagues', color: '#f59e0b' },
+  { label: 'Gym', note: 'daily recurring traffic', color: '#22c55e' },
+  { label: 'Tennis', note: 'premium check', color: '#e5e7eb' },
+  { label: 'Combat', note: 'frequency / retention', color: '#fb923c' },
+  { label: 'Events', note: 'weekend spikes', color: '#d6ae83' },
+] as const;
+
+const demandResearchLinks = [
+  { label: 'market analysis basketball', href: marketBasketballPdf, format: 'PDF' },
+  { label: 'market analysis gym', href: marketGymPdf, format: 'PDF' },
+  { label: 'market analysis tennis', href: marketTennisPdf, format: 'PDF' },
+  { label: 'market analysis combatzone', href: marketCombatzonePdf, format: 'PDF' },
+  { label: 'market analysis futsal', href: marketFutsalPdf, format: 'PDF' },
+  {
+    label: 'Платёжная аудитория indoor sports в Ташкенте',
+    href: marketAudienceIndoorSportsPdf,
+    format: 'PDF',
+  },
 ] as const;
 
 const operatingCycleCards = [
@@ -283,6 +312,8 @@ const unitEconomicsIconByZone: Record<string, string> = {
 export default function InvestorDeck() {
   const totalSlides = slideMeta.length;
   const [currentSlide, setCurrentSlide] = useState(() => readSlideFromLocation(totalSlides));
+  const [isResearchMenuOpen, setIsResearchMenuOpen] = useState(false);
+  const researchMenuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -313,6 +344,10 @@ export default function InvestorDeck() {
     window.history.replaceState(null, '', url.toString());
   }, [currentSlide]);
 
+  useEffect(() => {
+    setIsResearchMenuOpen(false);
+  }, [currentSlide]);
+
   const currentMeta = slideMeta[currentSlide];
   const narrative = slideNarratives[currentMeta.key];
   const progress = ((currentSlide + 1) / totalSlides) * 100;
@@ -325,6 +360,30 @@ export default function InvestorDeck() {
     () => getSpotlightStats(currentSlide),
     [currentSlide],
   );
+
+  useEffect(() => {
+    if (!isResearchMenuOpen) return;
+
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!researchMenuRef.current?.contains(event.target as Node)) {
+        setIsResearchMenuOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsResearchMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('mousedown', handlePointerDown);
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('mousedown', handlePointerDown);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isResearchMenuOpen]);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#060708] text-[#f6efe5]">
@@ -416,9 +475,23 @@ export default function InvestorDeck() {
                   {currentMeta.title}
                 </h1>
                 {currentMeta.subtitle ? (
-                  <p className="mt-4 max-w-4xl text-[15px] leading-7 text-[#e2d4c4]/74 sm:text-[17px]">
-                    {currentMeta.subtitle}
-                  </p>
+                  isDemandSlide ? (
+                    <div className="mt-4 flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between xl:gap-6">
+                      <p className="max-w-3xl text-[15px] leading-7 text-[#e2d4c4]/74 sm:text-[17px]">
+                        {currentMeta.subtitle}
+                      </p>
+                      <DemandResearchMenu
+                        open={isResearchMenuOpen}
+                        onToggle={() => setIsResearchMenuOpen((value) => !value)}
+                        onClose={() => setIsResearchMenuOpen(false)}
+                        containerRef={researchMenuRef}
+                      />
+                    </div>
+                  ) : (
+                    <p className="mt-4 max-w-4xl text-[15px] leading-7 text-[#e2d4c4]/74 sm:text-[17px]">
+                      {currentMeta.subtitle}
+                    </p>
+                  )
                 ) : null}
               </div>
 
@@ -580,7 +653,7 @@ function DemandSlide() {
   return (
     <div className="grid gap-5 xl:grid-cols-[1.1fr_0.9fr]">
       <div className="rounded-[30px] border border-white/10 bg-white/[0.035] p-5">
-        <div className="text-[11px] uppercase tracking-[0.34em] text-[#c7b39b]/54">Demand mix</div>
+        <div className="text-[11px] uppercase tracking-[0.34em] text-[#c7b39b]/54">Структура спроса</div>
         <div className="relative mt-5 h-[500px] sm:h-[540px]">
           <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
             <div className="h-[382px] w-[382px] rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.05),rgba(255,255,255,0.015)_48%,transparent_72%)] blur-[2px] sm:h-[412px] sm:w-[412px]" />
@@ -659,15 +732,110 @@ function DemandSlide() {
 
           <DemandMixInfoCard item={activeDemand} total={totalDemand} />
         </div>
+
+        <div className="mt-5 border-t border-white/8 pt-4">
+          <div className="text-[10px] uppercase tracking-[0.28em] text-[#c7b39b]/44">Ролевая легенда</div>
+          <div className="mt-3 flex flex-wrap gap-2.5">
+            {demandLegendItems.map((item) => (
+              <div
+                key={item.label}
+                className="inline-flex items-center gap-2.5 rounded-full border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.045),rgba(255,255,255,0.018))] px-3 py-2 text-[12px] leading-5 text-[#efe1d0]/76"
+              >
+                <span
+                  aria-hidden="true"
+                  className="h-2.5 w-2.5 shrink-0 rounded-full shadow-[0_0_12px_rgba(255,255,255,0.14)]"
+                  style={{ backgroundColor: item.color }}
+                />
+                <span>
+                  {item.label}
+                  <span className="text-white/38"> — </span>
+                  <span className="text-[#d8cab8]/60">{item.note}</span>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="space-y-4">
-        <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
+        <div className="grid gap-4 md:grid-cols-3 xl:grid-cols-1">
           {captureBands.map((band) => (
             <MetricCard key={band.label} label={band.label} value={band.range} note={band.note} tone={band.tone} />
           ))}
         </div>
-        <TextBlock title="Сегментация спроса" body="Игровые виды спорта (баскетбол, футзал) обеспечивают трафик и плотность комьюнити. Теннис и премиальный сегмент работают на увеличение среднего чека. Тренажерный зал и единоборства повышают частоту визитов и гарантируют стабильный ежедневный денежный поток." />
+        <TextBlock
+          title="Сегментация спроса"
+          body="Спрос формируется не одним рынком, а портфелем сегментов. Basketball и futsal дают массовую частоту и вечернюю загрузку. Tennis добавляет premium-чек и private training. Gym создаёт ежедневный recurring traffic. Combat усиливает retention, youth/adult fitness и стабильную групповую загрузку."
+        />
+      </div>
+    </div>
+  );
+}
+
+function DemandResearchMenu({
+  open,
+  onToggle,
+  onClose,
+  containerRef,
+}: {
+  open: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+  containerRef: RefObject<HTMLDivElement | null>;
+}) {
+  return (
+    <div ref={containerRef} className="relative z-30 w-full xl:w-auto xl:max-w-[400px]">
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        aria-controls="demand-research-menu"
+        className="inline-flex w-full items-center justify-between gap-3 rounded-[20px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] px-4 py-3 text-left text-sm text-[#f5e9d9]/84 shadow-[0_16px_38px_rgba(0,0,0,0.18)] backdrop-blur-xl transition duration-300 hover:-translate-y-[1px] hover:border-white/16 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.04))] hover:shadow-[0_22px_54px_rgba(0,0,0,0.24)] xl:min-w-[280px]"
+      >
+        <span>Открыть исследования</span>
+        <ChevronDown className={`h-4 w-4 shrink-0 transition duration-300 ${open ? 'rotate-180 text-[#f0cda7]' : 'text-white/56'}`} />
+      </button>
+
+      <div
+        id="demand-research-menu"
+        role="menu"
+        aria-hidden={!open}
+        className={`absolute left-0 top-[calc(100%+12px)] w-full overflow-hidden rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,16,21,0.88),rgba(8,10,14,0.78))] p-2 shadow-[0_28px_80px_rgba(0,0,0,0.34)] backdrop-blur-[24px] transition-all duration-200 xl:left-auto xl:right-0 xl:w-[390px] ${
+          open ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'
+        }`}
+      >
+        <div className="px-3 pb-2 pt-1">
+          <div className="text-[10px] uppercase tracking-[0.28em] text-[#c7b39b]/50">Исследования рынка</div>
+          <div className="mt-2 text-xs leading-5 text-[#d9cab8]/56">
+            6 файлов по сегментам спроса и платёжной аудитории.
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          {demandResearchLinks.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              role="menuitem"
+              onClick={onClose}
+              className="group flex items-center gap-3 rounded-[18px] border border-white/7 bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.018))] px-3 py-3 transition duration-300 hover:-translate-y-[1px] hover:border-white/14 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.028))] hover:shadow-[0_18px_48px_rgba(0,0,0,0.2)]"
+            >
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-[#f0e0cb]/78 transition group-hover:border-white/16 group-hover:bg-white/[0.07]">
+                <FileText className="h-4 w-4" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="text-sm leading-6 text-[#f4eadb]/84">{item.label}</div>
+                <div className="text-xs text-[#d2c2b1]/48">Открыть в новой вкладке</div>
+              </div>
+              <div className="shrink-0 rounded-full border border-white/10 bg-white/[0.045] px-2.5 py-1 text-[10px] uppercase tracking-[0.22em] text-[#d9be9d]/68">
+                {item.format}
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -690,13 +858,13 @@ function DemandMixInfoCard({
 
   return (
     <div className="pointer-events-none absolute right-4 top-1/2 z-10 w-[220px] -translate-y-1/2 translate-x-0 rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(14,18,24,0.82),rgba(9,11,15,0.66))] px-4 py-4 opacity-100 shadow-[0_24px_60px_rgba(0,0,0,0.28)] backdrop-blur-xl transition-all duration-300">
-      <div className="text-[10px] uppercase tracking-[0.28em] text-white/42">Segment Focus</div>
+      <div className="text-[10px] uppercase tracking-[0.28em] text-white/42">Фокус сегмента</div>
       <div className="mt-3 flex items-center gap-3 text-white/88">
         <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: item.color }} />
         <span className="leading-6">{item.name}</span>
       </div>
-      <div className="mt-4 text-[28px] leading-none text-white/92">{item.value.toLocaleString('en-US')}</div>
-      <div className="mt-2 text-sm text-white/60">{percent}% of total demand mix</div>
+      <div className="mt-4 text-[28px] leading-none text-white/92">{item.value.toLocaleString('ru-RU')}</div>
+      <div className="mt-2 text-sm text-white/60">{percent}% в общей структуре спроса</div>
     </div>
   );
 }
