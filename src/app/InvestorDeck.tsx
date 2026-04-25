@@ -459,7 +459,7 @@ export default function InvestorDeck() {
         <main className="min-w-0 bg-[linear-gradient(180deg,rgba(5,6,8,0.6),rgba(5,6,8,0.86)_22%,rgba(5,6,8,0.94))]">
           <div className="mx-auto flex min-h-screen max-w-[1500px] flex-col px-4 py-4 sm:px-6 lg:px-8 lg:py-6">
             <header
-              className={`grid gap-4 rounded-[30px] border border-white/10 bg-black/20 backdrop-blur-xl ${
+              className={`relative ${isDemandSlide ? 'z-40' : 'z-10'} grid gap-4 rounded-[30px] border border-white/10 bg-black/20 backdrop-blur-xl ${
                 isClosingSlide
                   ? 'px-6 py-6 sm:px-8 xl:grid-cols-[minmax(0,1fr)_348px] xl:items-start xl:gap-7'
                   : 'px-5 py-5 sm:px-7 xl:grid-cols-[minmax(0,1fr)_392px] xl:items-start xl:gap-6'
@@ -798,46 +798,64 @@ function DemandResearchMenu({
       </button>
 
       <div
+        className={`overflow-hidden transition-all duration-200 xl:hidden ${
+          open ? 'mt-3 max-h-[440px] opacity-100' : 'pointer-events-none max-h-0 opacity-0'
+        }`}
+      >
+        <div className="rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,16,21,0.88),rgba(8,10,14,0.78))] p-2 shadow-[0_28px_80px_rgba(0,0,0,0.34)] backdrop-blur-[24px]">
+          <DemandResearchMenuContent onClose={onClose} />
+        </div>
+      </div>
+
+      <div
         id="demand-research-menu"
         role="menu"
         aria-hidden={!open}
-        className={`absolute left-0 top-[calc(100%+12px)] w-full overflow-hidden rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,16,21,0.88),rgba(8,10,14,0.78))] p-2 shadow-[0_28px_80px_rgba(0,0,0,0.34)] backdrop-blur-[24px] transition-all duration-200 xl:left-auto xl:right-0 xl:w-[390px] ${
+        className={`hidden overflow-hidden rounded-[26px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,16,21,0.88),rgba(8,10,14,0.78))] p-2 shadow-[0_28px_80px_rgba(0,0,0,0.34)] backdrop-blur-[24px] transition-all duration-200 xl:absolute xl:left-auto xl:right-0 xl:top-[calc(100%+12px)] xl:block xl:w-[390px] ${
           open ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-2 opacity-0'
         }`}
       >
-        <div className="px-3 pb-2 pt-1">
-          <div className="text-[10px] uppercase tracking-[0.28em] text-[#c7b39b]/50">Исследования рынка</div>
-          <div className="mt-2 text-xs leading-5 text-[#d9cab8]/56">
-            6 файлов по сегментам спроса и платёжной аудитории.
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          {demandResearchLinks.map((item) => (
-            <a
-              key={item.label}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              role="menuitem"
-              onClick={onClose}
-              className="group flex items-center gap-3 rounded-[18px] border border-white/7 bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.018))] px-3 py-3 transition duration-300 hover:-translate-y-[1px] hover:border-white/14 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.028))] hover:shadow-[0_18px_48px_rgba(0,0,0,0.2)]"
-            >
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-[#f0e0cb]/78 transition group-hover:border-white/16 group-hover:bg-white/[0.07]">
-                <FileText className="h-4 w-4" />
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="text-sm leading-6 text-[#f4eadb]/84">{item.label}</div>
-                <div className="text-xs text-[#d2c2b1]/48">Открыть в новой вкладке</div>
-              </div>
-              <div className="shrink-0 rounded-full border border-white/10 bg-white/[0.045] px-2.5 py-1 text-[10px] uppercase tracking-[0.22em] text-[#d9be9d]/68">
-                {item.format}
-              </div>
-            </a>
-          ))}
-        </div>
+        <DemandResearchMenuContent onClose={onClose} />
       </div>
     </div>
+  );
+}
+
+function DemandResearchMenuContent({ onClose }: { onClose: () => void }) {
+  return (
+    <>
+      <div className="px-3 pb-2 pt-1">
+        <div className="text-[10px] uppercase tracking-[0.28em] text-[#c7b39b]/50">Исследования рынка</div>
+        <div className="mt-2 text-xs leading-5 text-[#d9cab8]/56">
+          6 файлов по сегментам спроса и платёжной аудитории.
+        </div>
+      </div>
+
+      <div className="max-h-[340px] space-y-2 overflow-y-auto pr-1 xl:max-h-[420px]">
+        {demandResearchLinks.map((item) => (
+          <a
+            key={item.label}
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            role="menuitem"
+            onClick={onClose}
+            className="group flex items-center gap-3 rounded-[18px] border border-white/7 bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.018))] px-3 py-3 transition duration-300 hover:-translate-y-[1px] hover:border-white/14 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.028))] hover:shadow-[0_18px_48px_rgba(0,0,0,0.2)]"
+          >
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.05] text-[#f0e0cb]/78 transition group-hover:border-white/16 group-hover:bg-white/[0.07]">
+              <FileText className="h-4 w-4" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="text-sm leading-6 text-[#f4eadb]/84">{item.label}</div>
+              <div className="text-xs text-[#d2c2b1]/48">Открыть в новой вкладке</div>
+            </div>
+            <div className="shrink-0 rounded-full border border-white/10 bg-white/[0.045] px-2.5 py-1 text-[10px] uppercase tracking-[0.22em] text-[#d9be9d]/68">
+              {item.format}
+            </div>
+          </a>
+        ))}
+      </div>
+    </>
   );
 }
 
