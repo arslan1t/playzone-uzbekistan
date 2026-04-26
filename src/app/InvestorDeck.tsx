@@ -563,11 +563,11 @@ export default function InvestorDeck() {
         : isInvestmentRequestSlide
           ? 'Инвестиционный запрос: $5,15 млн'
           : isPaybackCurveSlide
-            ? 'Возврат капитала за 30–36 месяцев'
+            ? 'Возврат капитала за 24–30 месяцев'
             : isReturnsSlide
               ? 'Новая категория — не ещё один зал'
               : isNetworkScaleSlide
-                ? 'Флагман — это модель для сети'
+                ? 'Флагман + сеть тренировочных баз'
                 : isRiskShieldSlide
                   ? 'Риски известны — и каждый закрыт'
                   : isDealCtaSlide
@@ -586,7 +586,7 @@ export default function InvestorDeck() {
             : isReturnsSlide
               ? 'APEX ARENA собирает полный спортивный цикл внутри одного объекта, одного бренда и одного календаря'
               : isNetworkScaleSlide
-                ? 'После запуска ценность создаёт не один объект, а способность тиражировать проверенную модель'
+                ? 'Масштабирование происходит внутри Ташкента за счёт упрощённых объектов'
                 : isRiskShieldSlide
                   ? 'Модель проектировалась с учётом downside сценариев, а не только базового'
                   : isDealCtaSlide
@@ -1005,6 +1005,12 @@ function DemandSlide() {
           title="Сегментация спроса"
           body="Спрос формируется не одним рынком, а портфелем сегментов. Basketball и futsal дают массовую частоту и вечернюю загрузку. Tennis добавляет premium-чек и private training. Gym создаёт ежедневный recurring traffic. Combat усиливает retention, youth/adult fitness и стабильную групповую загрузку."
         />
+        <div className="rounded-[20px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.015))] px-4 py-3">
+          <div className="text-[10px] uppercase tracking-[0.28em] text-[#c7b39b]/46">Источник</div>
+          <div className="mt-2 text-[13px] leading-6 text-[#d9cab8]/62">
+            Расчёт на основе ARPU $90–110/мес × active pool. Демографика: Агентство статистики Узбекистана, 2025
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -1559,10 +1565,10 @@ function UnitEconomicsSlide() {
     {
       year: 'ГОД 1',
       title: 'ЗАПУСК',
-      revenue: '19,0 млрд',
-      revenueValue: 19,
-      profit: 'Операционная прибыль: 4,2 млрд',
-      note: 'Академия и абонементы',
+      revenue: '17,5 млрд',
+      revenueValue: 17.5,
+      profit: 'Операционная прибыль: 6,5 млрд',
+      note: 'Pre-launch база + постепенный выход на загрузку',
       panelClass:
         'border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.018))]',
       revenueClass: 'text-[#f4eadc]/84',
@@ -1570,10 +1576,10 @@ function UnitEconomicsSlide() {
     {
       year: 'ГОД 2',
       title: 'РАЗГОН',
-      revenue: '25,1 млрд',
-      revenueValue: 25.1,
-      profit: 'Операционная прибыль: 8,0 млрд',
-      note: 'Вечерняя загрузка + лиги',
+      revenue: '26,8 млрд',
+      revenueValue: 26.8,
+      profit: 'Операционная прибыль: 11,2 млрд',
+      note: 'Рост лиг, турниров и recurring-клиентов',
       panelClass:
         'border-[#8f5b2b]/30 bg-[linear-gradient(180deg,rgba(198,123,55,0.22),rgba(198,123,55,0.08))]',
       revenueClass: 'text-[#f0bf8f]',
@@ -1581,10 +1587,10 @@ function UnitEconomicsSlide() {
     {
       year: 'ГОД 3',
       title: 'ЗРЕЛОСТЬ',
-      revenue: '31,8 млрд',
-      revenueValue: 31.8,
-      profit: 'Операционная прибыль: 11,2 млрд',
-      note: 'Турниры + premium slots',
+      revenue: '33,2 млрд',
+      revenueValue: 33.2,
+      profit: 'Операционная прибыль: 15,4 млрд',
+      note: 'Модель выходит на стабилизированную загрузку',
       panelClass:
         'border-[#c98a45]/48 bg-[linear-gradient(180deg,rgba(226,193,157,0.28),rgba(198,123,55,0.18))] shadow-[0_18px_56px_rgba(198,123,55,0.16)]',
       revenueClass: 'text-[#fff1dd]',
@@ -1666,21 +1672,33 @@ function UnitEconomicsSlide() {
         <div className="space-y-4">
           <MetricCard
             label="3 ГОДА ИТОГО"
-            value="75,9 млрд"
+            value="77,5 млрд"
             note="Совокупная выручка за три года"
             tone="amber"
           />
           <MetricCard
             label="ПРИБЫЛЬ ИТОГО"
-            value="23,4 млрд"
+            value="33,1 млрд"
             note="Совокупная операционная прибыль за три года"
             tone="ivory"
           />
+          <div className="rounded-[24px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.014))] px-4 py-4 sm:px-5">
+            <div className="text-[10px] uppercase tracking-[0.28em] text-[#c7b39b]/48">PRE-LAUNCH DEMAND</div>
+            <div className="mt-3 text-[13px] leading-6 text-[#e0d2c2]/66">
+              Спрос формируется до открытия: заявки в академию, команды для лиг, партнёрства со школами, early memberships и предварительная база тренеров.
+            </div>
+          </div>
+          <div className="rounded-[24px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.014))] px-4 py-4 sm:px-5">
+            <div className="text-[10px] uppercase tracking-[0.28em] text-[#c7b39b]/48">RAMP-UP LOGIC</div>
+            <div className="mt-3 text-[13px] leading-6 text-[#e0d2c2]/66">
+              Год 1 не считается как полная загрузка. Модель растёт поэтапно: стартовая база → вечерние лиги → турниры → стабилизированная загрузка.
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="rounded-[22px] border border-white/8 bg-[rgba(255,255,255,0.028)] px-5 py-4 text-center text-[14px] leading-6 text-[#d8c9b7]/64 sm:px-6">
-        Рост обеспечивается управлением загрузкой и расписанием — без открытия новых объектов
+        Рост достигается не открытием новых объектов, а управлением загрузкой и заранее сформированным спросом.
       </div>
     </div>
   );
@@ -1780,7 +1798,7 @@ function ScheduleSlide() {
       </div>
 
       <div className="rounded-[22px] border border-white/8 bg-[rgba(255,255,255,0.028)] px-5 py-4 text-center text-[14px] leading-6 text-[#d8c9b7]/64 sm:px-6">
-        Земля составляет ~49% запроса — операционная часть комплекса собирается в $2,65 млн при сохранении premium качества покрытий и оснащения
+        Капитал направлен на запуск операционной модели с высокой загрузкой и диверсифицированной выручкой.
       </div>
     </div>
   );
@@ -1792,8 +1810,8 @@ function GrowthSlide() {
   const margin = { top: 64, right: 34, bottom: 58, left: 72 };
   const plotWidth = chartWidth - margin.left - margin.right;
   const plotHeight = chartHeight - margin.top - margin.bottom;
-  const yMax = 25;
-  const yTicks = [0, 5, 10, 15, 20, 25] as const;
+  const yMax = 35;
+  const yTicks = [0, 5, 10, 15, 20, 25, 30, 35] as const;
   const phaseRanges = [
     { label: 'ЗАПУСК', note: 'Год 1 · мес. 1–12', start: 0, end: 12 },
     { label: 'РАЗГОН', note: 'Год 2 · мес. 13–24', start: 12, end: 24 },
@@ -1821,9 +1839,9 @@ function GrowthSlide() {
     },
     {
       p0: { month: 24, value: 12.2 },
-      c1: { month: 28, value: 14.4 },
-      c2: { month: 32, value: 19.6 },
-      p1: { month: 36, value: 23.4 },
+      c1: { month: 27.5, value: 15.8 },
+      c2: { month: 31.5, value: 26.8 },
+      p1: { month: 36, value: 33.1 },
     },
   ];
 
@@ -1856,7 +1874,7 @@ function GrowthSlide() {
     ...sampleSegment(curveSegments[2], 18, true),
   ];
 
-  const returnMonth = 33;
+  const returnMonth = 29;
   const returnPoint = cubicPoint(curveSegments[2], (returnMonth - 24) / 12);
   const capexLineValue = returnPoint.value;
   const baseY = yForValue(0);
@@ -1911,7 +1929,7 @@ function GrowthSlide() {
   const curveMarkers = [
     { month: 12, value: 4.2, label: '4,2 млрд', dx: 12, dy: -14, anchor: 'start' as const },
     { month: 24, value: 12.2, label: '12,2 млрд', dx: 12, dy: -14, anchor: 'start' as const },
-    { month: 36, value: 23.4, label: '23,4 млрд', dx: -18, dy: -20, anchor: 'end' as const },
+    { month: 36, value: 33.1, label: '33,1 млрд', dx: -18, dy: -20, anchor: 'end' as const },
   ] as const;
 
   return (
@@ -2151,7 +2169,7 @@ function GrowthSlide() {
                   fill="rgba(255,241,221,0.92)"
                   fontSize="12"
                 >
-                  Точка возврата ~мес. 33
+                  Точка возврата ~мес. 29
                 </text>
               </g>
             </svg>
@@ -2161,19 +2179,19 @@ function GrowthSlide() {
         <div className="space-y-4 xl:pt-4">
           <MetricCard
             label="БАЗОВЫЙ СЦЕНАРИЙ"
-            value="30–36 мес"
+            value="24–30 мес"
             note="При достижении плановой загрузки по академии, лигам и gym"
             tone="amber"
           />
           <MetricCard
             label="DOWNSIDE 70% ЗАГРУЗКИ"
-            value="~42 мес"
+            value="~34–36 мес"
             note="Модель остаётся положительной даже при недозагрузке"
             tone="steel"
           />
           <MetricCard
             label="ПРИБЫЛЬ ЗА 3 ГОДА"
-            value="23,4 млрд"
+            value="33,1 млрд"
             note="Совокупная операционная прибыль нарастающим итогом"
             tone="ivory"
           />
@@ -2295,11 +2313,13 @@ function ReturnsSlide() {
 }
 
 function ObjectTourSlide() {
-  const coreArena = objectTourAssets.filter((asset) => asset.group === 'CORE ARENA');
-  const trainingAssets = objectTourAssets.filter((asset) => asset.group === 'TRAINING & PERFORMANCE');
-  const experienceAssets = objectTourAssets.filter((asset) => asset.group === 'EXPERIENCE & PREMIUM');
-  const vipAsset = experienceAssets.find((asset) => asset.featured) ?? experienceAssets[0] ?? objectTourAssets[0];
-  const secondaryExperienceAssets = experienceAssets.filter((asset) => asset.id !== vipAsset.id);
+  const galleryAsset = (id: string) => {
+    const asset = objectTourAssets.find((item) => item.id === id) ?? objectTourAssets[0];
+    return { ...asset, featured: false };
+  };
+  const exteriorAsset = galleryAsset('exterior');
+  const firstFloorAssets = ['arenas', 'gym', 'lobby'].map(galleryAsset);
+  const secondFloorAssets = ['tennis', 'combat', 'cafe', 'vip'].map(galleryAsset);
   const [activeAssetId, setActiveAssetId] = useState<string | null>(null);
   const activeAsset = activeAssetId
     ? objectTourAssets.find((asset) => asset.id === activeAssetId) ?? null
@@ -2355,62 +2375,44 @@ function ObjectTourSlide() {
       <div className="overflow-hidden rounded-[32px] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(214,174,131,0.12),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(97,131,155,0.1),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.012))] p-3 shadow-[0_20px_60px_rgba(0,0,0,0.2)] sm:p-4">
         <div className="space-y-4">
           <section className="rounded-[28px] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.028),rgba(255,255,255,0.012))] p-3 sm:p-4">
-            <div className="mb-3 flex items-center justify-between gap-3 px-1">
-              <div className="text-[10px] uppercase tracking-[0.32em] text-[#c7b39b]/52">CORE ARENA</div>
-              <div className="hidden text-[11px] text-[#cdbba8]/36 sm:block">Architecture / customer experience</div>
+            <TourImagePanel
+              asset={exteriorAsset}
+              onOpen={openAsset}
+              className="aspect-[1536/1024]"
+            />
+          </section>
+
+          <section className="rounded-[28px] border border-white/8 bg-[radial-gradient(circle_at_top_left,rgba(97,131,155,0.08),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.024),rgba(255,255,255,0.012))] p-3 sm:p-4">
+            <div className="mb-3 px-1 text-[10px] uppercase tracking-[0.32em] text-[#c7b39b]/52">
+              1 этаж
             </div>
-            <div className="grid gap-3 xl:grid-cols-[1.2fr_0.8fr]">
-              {coreArena.map((asset, index) => (
+            <div className="grid gap-3 sm:grid-cols-3">
+              {firstFloorAssets.map((asset) => (
                 <TourImagePanel
                   key={asset.id}
                   asset={asset}
                   onOpen={openAsset}
-                  className={index === 0 ? 'min-h-[280px] sm:min-h-[340px] xl:min-h-[430px]' : 'min-h-[280px] sm:min-h-[340px] xl:min-h-[430px]'}
+                  className="aspect-[1536/1024]"
                 />
               ))}
             </div>
           </section>
 
-          <div className="grid gap-4 xl:grid-cols-[1.02fr_0.98fr]">
-            <section className="rounded-[28px] border border-white/8 bg-[radial-gradient(circle_at_top_left,rgba(97,131,155,0.08),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.024),rgba(255,255,255,0.012))] p-3 sm:p-4">
-              <div className="mb-3 px-1 text-[10px] uppercase tracking-[0.32em] text-[#c7b39b]/52">
-                TRAINING & PERFORMANCE
-              </div>
-              <div className="grid gap-3 sm:grid-cols-3">
-                {trainingAssets.map((asset) => (
-                  <TourImagePanel
-                    key={asset.id}
-                    asset={asset}
-                    onOpen={openAsset}
-                    className="min-h-[180px] sm:min-h-[230px] xl:min-h-[250px]"
-                  />
-                ))}
-              </div>
-            </section>
-
-            <section className="rounded-[28px] border border-[#8f5b2b]/20 bg-[radial-gradient(circle_at_top_right,rgba(214,174,131,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.026),rgba(255,255,255,0.012))] p-3 sm:p-4">
-              <div className="mb-3 px-1 text-[10px] uppercase tracking-[0.32em] text-[#c7b39b]/52">
-                EXPERIENCE & PREMIUM
-              </div>
-              <div className="grid gap-3 sm:grid-cols-[0.84fr_1.16fr]">
-                <div className="grid gap-3">
-                  {secondaryExperienceAssets.map((asset) => (
-                    <TourImagePanel
-                      key={asset.id}
-                      asset={asset}
-                      onOpen={openAsset}
-                      className="min-h-[180px] sm:min-h-[196px] xl:min-h-[214px]"
-                    />
-                  ))}
-                </div>
+          <section className="rounded-[28px] border border-[#8f5b2b]/20 bg-[radial-gradient(circle_at_top_right,rgba(214,174,131,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.026),rgba(255,255,255,0.012))] p-3 sm:p-4">
+            <div className="mb-3 px-1 text-[10px] uppercase tracking-[0.32em] text-[#c7b39b]/52">
+              2 этаж
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {secondFloorAssets.map((asset) => (
                 <TourImagePanel
-                  asset={vipAsset}
+                  key={asset.id}
+                  asset={asset}
                   onOpen={openAsset}
-                  className="min-h-[240px] sm:min-h-[405px] xl:min-h-[440px]"
+                  className="aspect-[1536/1024]"
                 />
-              </div>
-            </section>
-          </div>
+              ))}
+            </div>
+          </section>
         </div>
       </div>
 
@@ -2488,8 +2490,8 @@ function WhyWorksSlide() {
     {
       step: '01',
       label: 'ЭТАП 01',
-      title: 'Запуск флагмана',
-      body: 'Первый объект подтверждает планировку, архитектуру выручки и стандарты сервиса в Ташкенте',
+      title: 'Флагман (Apex Arena)',
+      body: 'Центр экосистемы: турниры, лиги, premium-сегмент и основной поток выручки',
       circleClass:
         'border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] text-[#f5ecdf]/78',
       panelClass:
@@ -2499,7 +2501,7 @@ function WhyWorksSlide() {
       step: '02',
       label: 'ЭТАП 02',
       title: 'Фиксация модели',
-      body: 'Операционный календарь, правила ценообразования и стандарт сервиса оформляются в повторяемую систему',
+      body: 'Отрабатываются расписание, загрузка, ценообразование и клиентский путь',
       circleClass:
         'border-[#7c6658]/40 bg-[linear-gradient(180deg,rgba(124,102,88,0.28),rgba(124,102,88,0.09))] text-[#ead9c7]',
       panelClass:
@@ -2508,8 +2510,8 @@ function WhyWorksSlide() {
     {
       step: '03',
       label: 'ЭТАП 03',
-      title: 'Тиражирование формата',
-      body: 'Следующие объекты повторяют уже проверенную логику дохода, загрузки и клиентского пути',
+      title: 'Тренировочные базы',
+      body: 'Упрощённые объекты: меньше CAPEX, быстрее запуск, стабильная загрузка',
       circleClass:
         'border-[#8f5b2b]/44 bg-[linear-gradient(180deg,rgba(198,123,55,0.36),rgba(198,123,55,0.12))] text-[#f5dec0]',
       panelClass:
@@ -2518,8 +2520,8 @@ function WhyWorksSlide() {
     {
       step: '04',
       label: 'ЭТАП 04',
-      title: 'Ценность сети',
-      body: 'Несколько объектов усиливают бренд, партнёрства, переговорную позицию и общую стоимость сети',
+      title: 'Единая экосистема',
+      body: 'Базы генерируют поток клиентов в флагман. Флагман монетизирует события, турниры и premium',
       circleClass:
         'border-[#d6ae83]/60 bg-[linear-gradient(180deg,rgba(214,174,131,0.72),rgba(198,123,55,0.24))] text-[#17120c]',
       panelClass:
@@ -2563,22 +2565,40 @@ function WhyWorksSlide() {
         <div className="space-y-4">
           <MetricCard
             label="ОБЪЕКТ 1"
-            value="Ташкент · 2026"
-            note="Флагман · $5,15 млн CAPEX · возврат 30–36 мес"
+            value="Ташкент — Флагман"
+            note="Apex Arena · $5.15M CAPEX · Центр выручки и бренда"
             tone="amber"
           />
 
-          <MetricCard
-            label="СЕТЬ 3+ ОБЪЕКТОВ"
-            value="Самарканд · Фергана"
-            note="Каждый следующий объект дешевле и быстрее за счёт готовой модели"
-            tone="ivory"
-          />
+          <div className={`rounded-[26px] border p-5 ${toneStyles['ivory'].ring} ${toneStyles['ivory'].soft}`}>
+            <div className="text-[11px] uppercase tracking-[0.32em] text-[#c4ae97]/52">СЕТЬ ОБЪЕКТОВ (Ташкент)</div>
+            <div className="mt-4 space-y-4">
+              <div>
+                <div className="text-[16px] leading-6 text-[#f3e8d8]/84">Баскетбольная база</div>
+                <div className="mt-1 text-sm leading-6 text-[#decebc]/68">2–3 корта · академия + вечерние игры · высокая загрузка</div>
+              </div>
+              <div>
+                <div className="text-[16px] leading-6 text-[#f3e8d8]/84">Футзальная база</div>
+                <div className="mt-1 text-sm leading-6 text-[#decebc]/68">2 поля · лиги + аренда · стабильный поток</div>
+              </div>
+              <div>
+                <div className="text-[16px] leading-6 text-[#f3e8d8]/84">Теннисная база</div>
+                <div className="mt-1 text-sm leading-6 text-[#decebc]/68">2–4 корта · premium-сегмент · высокий чек</div>
+              </div>
+              <div>
+                <div className="text-[16px] leading-6 text-[#f3e8d8]/84">Combat база</div>
+                <div className="mt-1 text-sm leading-6 text-[#decebc]/68">зал единоборств · группы + персональные тренировки · высокая частота</div>
+              </div>
+            </div>
+            <div className="mt-4 text-[12px] leading-5 text-[#d7c6b3]/56">
+              Упрощённые объекты с быстрым запуском и фокусом на одном виде спорта
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="rounded-[22px] border border-white/8 bg-[rgba(255,255,255,0.028)] px-5 py-4 text-center text-[14px] leading-6 text-[#d8c9b7]/64 sm:px-6">
-        Инвестор входит в первый объект и получает долю в модели которая масштабируется
+        Флагман создаёт спрос и бренд, базы масштабируют модель
       </div>
     </div>
   );

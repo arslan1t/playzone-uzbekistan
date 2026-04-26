@@ -139,7 +139,7 @@ export const slideMeta: SlideMeta[] = [
     id: 10,
     key: 'growth',
     eyebrow: 'ВОЗВРАТ КАПИТАЛА',
-    title: 'Возврат капитала за 30–36 месяцев',
+    title: 'Возврат капитала за 24–30 месяцев',
     subtitle:
       'Срок возврата обеспечен базовым потоком — турниры и премиум слоты это апсайд',
     backdrop: 'blueprint',
@@ -175,9 +175,9 @@ export const slideMeta: SlideMeta[] = [
     id: 13,
     key: 'drivers',
     eyebrow: 'ЛОГИКА СЕТИ',
-    title: 'Флагман — это модель для сети',
+    title: 'Флагман + сеть тренировочных баз',
     subtitle:
-      'После запуска ценность создаёт не один объект, а способность тиражировать проверенную модель',
+      'Масштабирование происходит внутри Ташкента за счёт упрощённых объектов',
     backdrop: 'charcoal',
     ctaLabel: 'Стратегический фрейм',
     deepDiveId: 'operating-drivers',
@@ -364,19 +364,19 @@ export const captureBands: CaptureBand[] = [
   {
     label: 'TAM',
     range: '25 000–35 000',
-    note: 'Платёжеспособная reachable-аудитория indoor sports в Ташкенте: basketball, futsal, tennis, gym и combat с учётом пересечений между сегментами.',
+    note: 'Платёжеспособная reachable-аудитория indoor sports в Ташкенте: basketball, futsal, tennis, gym и combat с учётом пересечений между сегментами. ~$20–26M рынок indoor спорта Ташкента.',
     tone: 'ivory',
   },
   {
     label: 'SAM',
     range: '10 000–14 000',
-    note: 'Аудитория в зоне доступа комплекса, готовая платить за качественный indoor-формат: академии, лиги, турниры, private training, gym и club service.',
+    note: 'Аудитория в зоне доступа комплекса, готовая платить за качественный indoor-формат: академии, лиги, турниры, private training, gym и club service.~$9–12M платёжеспособный сегмент.',
     tone: 'amber',
   },
   {
     label: 'SOM',
     range: '1 800–2 500',
-    note: 'Реалистичная месячная активная база первого объекта после выхода на рабочую загрузку: recurring clients + leagues + tournaments + visitors + premium bookings.',
+    note: 'Реалистичная месячная активная база первого объекта после выхода на рабочую загрузку: recurring clients + leagues + tournaments + visitors + premium bookings.~$1,3–1,8M выручка первого объекта.',
     tone: 'steel',
   },
 ];
