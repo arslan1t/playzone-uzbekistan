@@ -260,11 +260,26 @@ const revenueArchitectureRows = [
     value: '243,0 млн',
     color: '#fb923c',
   },
+];
+
+const revenueArchitectureAdditionalRows = [
+  {
+    zone: 'Weekend tournaments / Events',
+    role: 'Турниры, финалы, event-выручка',
+    value: '232,0 млн',
+    color: '#8f5949',
+  },
   {
     zone: 'Café + Retail + Sponsor',
-    role: 'Сопутствующий поток',
+    role: 'F&B, retail, партнёрские интеграции',
     value: '270,0 млн',
     color: '#d6ae83',
+  },
+  {
+    zone: 'Night Session + Night Pass',
+    role: 'Ночные продукты и доп. доступ',
+    value: '81,3 млн',
+    color: '#c7b39b',
   },
 ] as const;
 
@@ -563,7 +578,7 @@ export default function InvestorDeck() {
         : isInvestmentRequestSlide
           ? 'Инвестиционный запрос: $5,15 млн'
           : isPaybackCurveSlide
-            ? 'Возврат капитала за 24–30 месяцев'
+            ? 'Возврат капитала: 24–30 мес от открытия'
             : isReturnsSlide
               ? 'Новая категория — не ещё один зал'
               : isNetworkScaleSlide
@@ -582,7 +597,7 @@ export default function InvestorDeck() {
         : isInvestmentRequestSlide
           ? 'Капитал распределён по логике запуска доходной модели, а не по статьям сметы'
           : isPaybackCurveSlide
-            ? 'Срок возврата обеспечен базовым потоком — турниры и премиум слоты это апсайд'
+            ? 'От даты инвестиции полный цикл составляет 36–48 месяцев с учётом строительства и запуска.'
             : isReturnsSlide
               ? 'APEX ARENA собирает полный спортивный цикл внутри одного объекта, одного бренда и одного календаря'
               : isNetworkScaleSlide
@@ -1255,6 +1270,47 @@ function LayoutSlide() {
               </div>
             ))}
           </div>
+
+          <div className="border-t border-white/8 px-5 py-4 sm:px-6">
+            <div className="text-[10px] uppercase tracking-[0.26em] text-[#c7b39b]/44">
+              Дополнительные потоки
+            </div>
+            <div className="mt-3 divide-y divide-white/6 overflow-hidden rounded-[22px] border border-white/6 bg-white/[0.02]">
+              {revenueArchitectureAdditionalRows.map((row) => (
+                <div key={row.zone} className="px-4 py-3 sm:px-5">
+                  <div className="hidden grid-cols-[8px_minmax(0,1.15fr)_minmax(0,0.95fr)_110px] items-center gap-5 lg:grid">
+                    <span
+                      aria-hidden="true"
+                      className="h-9 w-[5px] rounded-full opacity-90"
+                      style={{ backgroundColor: row.color }}
+                    />
+                    <div className="text-[14px] leading-6 text-[#f6ede1]/78">{row.zone}</div>
+                    <div className="text-[13px] leading-6 text-[#cfbfac]/56">{row.role}</div>
+                    <div className="text-right text-[14px] font-medium tabular-nums text-[#f4e3ca]/78">{row.value}</div>
+                  </div>
+
+                  <div className="flex items-start gap-3 lg:hidden">
+                    <span
+                      aria-hidden="true"
+                      className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full opacity-90"
+                      style={{ backgroundColor: row.color }}
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="text-[14px] leading-6 text-[#f6ede1]/78">{row.zone}</div>
+                        <div className="shrink-0 text-[14px] font-medium tabular-nums text-[#f4e3ca]/78">{row.value}</div>
+                      </div>
+                      <div className="mt-1 text-[13px] leading-6 text-[#cfbfac]/56">{row.role}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4 text-[12px] leading-6 text-[#d3c2af]/56">
+              Итоговая выручка включает не только зоны, но и event-выручку, F&amp;B, спонсорские интеграции и night-продукты.
+            </div>
+          </div>
         </div>
 
         <div className="space-y-3.5">
@@ -1694,6 +1750,9 @@ function UnitEconomicsSlide() {
               Год 1 не считается как полная загрузка. Модель растёт поэтапно: стартовая база → вечерние лиги → турниры → стабилизированная загрузка.
             </div>
           </div>
+          <div className="px-1 text-[12px] leading-6 text-[#d8c9b7]/56">
+            Базовая модель даёт ~2,1 млрд сум/мес; рост 3-го года достигается за счёт увеличения event-месяцев, premium-слотов, спонсорских интеграций и расширения лиг.
+          </div>
         </div>
       </div>
 
@@ -1771,6 +1830,9 @@ function ScheduleSlide() {
             {' '}
             1 USD = 12 015,96 UZS
           </div>
+          <div className="mt-3 text-[12px] leading-6 text-[#bfae9b]/44">
+            CAPEX включает landed cost: доставку, таможенные платежи, монтаж и запуск. Contingency покрывает ценовые, курсовые и операционные отклонения.
+          </div>
         </div>
 
         <div className="space-y-4">
@@ -1788,12 +1850,12 @@ function ScheduleSlide() {
             tone="steel"
           />
 
-          <MetricCard
-            label="ВОЗВРАТ"
-            value="30–36 мес"
-            note="При достижении плановой загрузки базового сценария"
-            tone="ivory"
-          />
+          <div className={`rounded-[26px] border p-5 ${toneStyles['ivory'].ring} ${toneStyles['ivory'].soft}`}>
+            <div className="text-[11px] uppercase tracking-[0.32em] text-[#c4ae97]/52">ВОЗВРАТ</div>
+            <div className={`mt-3 text-[30px] leading-none ${toneStyles['ivory'].text}`}>24–30 мес</div>
+            <div className="mt-3 text-sm leading-6 text-[#decebc]/68">После открытия объекта</div>
+            <div className="mt-2 text-[12px] leading-5 text-[#d7c6b3]/56">Полный цикл от инвестиции: 36–48 мес</div>
+          </div>
         </div>
       </div>
 
@@ -2061,10 +2123,10 @@ function GrowthSlide() {
                   y={capexLabelY + 16}
                   textAnchor="middle"
                   fill="rgba(240,191,143,0.88)"
-                  fontSize="11"
-                  letterSpacing="0.04em"
+                  fontSize="10"
+                  letterSpacing="0.02em"
                 >
-                  CAPEX $2,65 млн
+                  Опер. CAPEX $2.65 млн
                 </text>
               </g>
 
@@ -2167,9 +2229,9 @@ function GrowthSlide() {
                   y={returnCalloutY + 18}
                   textAnchor="middle"
                   fill="rgba(255,241,221,0.92)"
-                  fontSize="12"
+                  fontSize="9"
                 >
-                  Точка возврата ~мес. 29
+                  Операционный CAPEX без земли
                 </text>
               </g>
             </svg>
@@ -2177,24 +2239,38 @@ function GrowthSlide() {
         </div>
 
         <div className="space-y-4 xl:pt-4">
-          <MetricCard
-            label="БАЗОВЫЙ СЦЕНАРИЙ"
-            value="24–30 мес"
-            note="При достижении плановой загрузки по академии, лигам и gym"
-            tone="amber"
-          />
-          <MetricCard
-            label="DOWNSIDE 70% ЗАГРУЗКИ"
-            value="~34–36 мес"
-            note="Модель остаётся положительной даже при недозагрузке"
-            tone="steel"
-          />
-          <MetricCard
-            label="ПРИБЫЛЬ ЗА 3 ГОДА"
-            value="33,1 млрд"
-            note="Совокупная операционная прибыль нарастающим итогом"
-            tone="ivory"
-          />
+          {[
+            {
+              label: 'БАЗОВЫЙ СЦЕНАРИЙ',
+              value: '24–30 мес',
+              note: 'Срок возврата после открытия объекта',
+              tone: 'amber' as Tone,
+            },
+            {
+              label: 'ПОЛНЫЙ ЦИКЛ',
+              value: '36–48 мес',
+              note: 'Полный срок от входа инвестора, включая землю, строительство и запуск',
+              tone: 'ivory' as Tone,
+            },
+            {
+              label: 'СНИЖЕННАЯ ЗАГРУЗКА',
+              value: '~42–48 мес',
+              note: 'При снижении загрузки и более длинном ramp-up',
+              tone: 'steel' as Tone,
+            },
+            {
+              label: 'ПРИБЫЛЬ ЗА 3 ГОДА',
+              value: '33,1 млрд',
+              note: 'Совокупная операционная прибыль после выхода модели на рабочую загрузку',
+              tone: 'ivory' as Tone,
+            },
+          ].map((card) => (
+            <div key={card.label} className={`rounded-[26px] border p-5 ${toneStyles[card.tone].ring} ${toneStyles[card.tone].soft}`}>
+              <div className="text-[11px] uppercase tracking-[0.32em] text-[#c4ae97]/52">{card.label}</div>
+              <div className={`mt-3 text-[30px] leading-none ${toneStyles[card.tone].text}`}>{card.value}</div>
+              <div className="mt-3 text-[13px] leading-5 text-[#decebc]/68">{card.note}</div>
+            </div>
+          ))}
         </div>
       </div>
 
@@ -2634,6 +2710,13 @@ function CompetitionSlide() {
       mitigate:
         'Contingency 10% заложен в CAPEX — резерв $0,24 млн покрывает удорожание материалов и корректировку сроков',
     },
+    {
+      riskId: '05',
+      riskTitle: 'Валютный риск',
+      riskBody: 'Выручка формируется в UZS, часть CAPEX и оборудования номинирована в USD.',
+      mitigate:
+        'Поэтапная закупка, резерв в CAPEX, частичная фиксация цен и приоритет финансирования в национальной валюте.',
+    },
   ] as const;
 
   return (
@@ -2661,35 +2744,35 @@ function CompetitionSlide() {
 
             return (
               <div key={row.riskId} className="grid grid-cols-1 md:grid-cols-2">
-                <div className={`px-5 py-5 sm:px-6 ${riskClass}`}>
+                <div className={`px-5 py-4 sm:px-6 ${riskClass}`}>
                   <div className="flex items-start gap-4">
-                    <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-[#8f5b2b]/30 bg-[rgba(198,123,55,0.08)] text-[#f0bf8f]">
+                    <div className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-[#8f5b2b]/30 bg-[rgba(198,123,55,0.08)] text-[#f0bf8f]">
                       <TriangleAlert className="h-4 w-4" />
                     </div>
                     <div className="min-w-0">
                       <div className="text-[10px] uppercase tracking-[0.28em] text-[#c7b39b]/48">
                         {`РИСК ${row.riskId}`}
                       </div>
-                      <div className="mt-3 text-[24px] leading-tight text-[#fbf2e6]/88 sm:text-[28px]">
+                      <div className="mt-2 text-[20px] leading-tight text-[#fbf2e6]/88 sm:text-[22px]">
                         {row.riskTitle}
                       </div>
-                      <div className="mt-4 max-w-[420px] text-[15px] leading-7 text-[#e2d4c4]/68">
+                      <div className="mt-3 max-w-[420px] text-[14px] leading-6 text-[#e2d4c4]/68">
                         {row.riskBody}
                       </div>
                     </div>
                   </div>
                 </div>
 
-                <div className={`border-t border-white/[0.05] px-5 py-5 sm:px-6 ${mitigateClass} md:border-l md:border-t-0`}>
+                <div className={`border-t border-white/[0.05] px-5 py-4 sm:px-6 ${mitigateClass} md:border-l md:border-t-0`}>
                   <div className="flex items-start gap-4">
-                    <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-[#4e8f67]/28 bg-[rgba(85,163,114,0.1)] text-[#b9efc6]">
+                    <div className="mt-1 flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl border border-[#4e8f67]/28 bg-[rgba(85,163,114,0.1)] text-[#b9efc6]">
                       <Check className="h-4 w-4" />
                     </div>
                     <div className="min-w-0">
                       <div className="text-[10px] uppercase tracking-[0.28em] text-[#c7b39b]/48">
                         МИТИГАТОР
                       </div>
-                      <div className="mt-4 max-w-[460px] text-[15px] leading-7 text-[#edf0f3]/72">
+                      <div className="mt-3 max-w-[460px] text-[14px] leading-6 text-[#edf0f3]/72">
                         {row.mitigate}
                       </div>
                     </div>
@@ -2702,7 +2785,7 @@ function CompetitionSlide() {
       </div>
 
       <div className="rounded-[22px] border border-white/8 bg-[rgba(255,255,255,0.028)] px-5 py-4 text-center text-[14px] leading-6 text-[#d8c9b7]/64 sm:px-6">
-        Модель устойчива при снижении загрузки — доход распределён между пятью независимыми сегментами
+        Модель учитывает операционные, строительные, конкурентные и валютные риски через диверсификацию дохода, contingency и phased launch.
       </div>
     </div>
   );
@@ -2712,19 +2795,19 @@ function InvestmentSlide() {
   const nowReasons = [
     {
       title: 'Спрос подтверждён',
-      note: 'Платящая аудитория 10 000–14 000 человек в зоне доступа комплекса',
+      note: 'Платёжная аудитория и спортивные сегменты уже сформированы в Ташкенте.',
     },
     {
-      title: 'Экономика просчитана',
-      note: 'Возврат капитала 30–36 месяцев обеспечен базовым потоком без турниров',
+      title: 'Модель просчитана',
+      note: 'Экономика построена на 9 потоках выручки и рабочей месячной операционной модели.',
     },
     {
       title: 'CAPEX структурирован',
-      note: '$5,15 млн с contingency 10% и резервом оборотного капитала',
+      note: '$5.15M включает землю, строительство, fit-out, оборудование и резерв.',
     },
     {
-      title: 'Аналог в регионе отсутствует',
-      note: 'Окно возможности открыто — барьер входа высокий',
+      title: 'Команда формируется под запуск',
+      note: 'Founder-operator ведёт концепт, модель, партнёрства и найм ключевых операционных ролей.',
     },
   ] as const;
 
@@ -2763,7 +2846,7 @@ function InvestmentSlide() {
             Обсудим структуру сделки
           </div>
           <div className="mt-4 max-w-[360px] text-[15px] leading-7 text-[#dacbbb]/66">
-            Готовы к встрече, звонку или отправке финансовой модели
+            Обсудим структуру сделки, роль инвестора, долю / формат участия и поэтапный план запуска.
           </div>
 
           <div className="mt-6 h-px w-full bg-[linear-gradient(90deg,rgba(214,174,131,0.4),rgba(255,255,255,0.06))]" />
